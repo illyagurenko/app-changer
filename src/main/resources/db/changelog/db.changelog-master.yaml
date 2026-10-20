@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-create-schema-and-tables.sql
+  - include:
+      file: db/changelog/002-insert-default-config.sql
+  - include:
+      file: db/changelog/003-create-procedure.sql
