@@ -2,8 +2,8 @@
 
 --changeset illya:006-create-changer-procedure splitStatements:false
 CREATE OR REPLACE PROCEDURE "ACC_APP_CHANGER".changer_data_account(
-    IN cur_in refcursor,
-    INOUT cur_out refcursor,
+    IN cur_in refcursor, -- передаю я
+    INOUT cur_out refcursor, -- передаст процедура
     OUT code INT,
     OUT message VARCHAR
 )
@@ -21,7 +21,7 @@ BEGIN
     code := 0;
     message := NULL;
 
-    -- временная таблица под формат выходного курсора
+    -- временная таблица для чтения и изменения
     CREATE TEMP TABLE IF NOT EXISTS temp_account_balances (
         "account" VARCHAR,
         "oldTbal" NUMERIC(23, 3),
@@ -35,10 +35,10 @@ BEGIN
         FETCH cur_in INTO v_account, v_operation, v_amount, v_currency;
         EXIT WHEN NOT FOUND;
 
-        --  oldTbal: генерация баланса до изменений (например, от 1000 до 50000)
+        --  генерация баланса до изменений (например, от 1000 до 50000)
         v_old_tbal := ROUND((random() * 49000 + 1000)::numeric, 2);
 
-        --  newTbal: в зависимости от DR / CR / ZR
+        --  newTbal в зависимости от DR  CR  ZR
         CASE UPPER(TRIM(v_operation))
             WHEN 'CR' THEN
                 v_new_tbal := v_old_tbal + v_amount;
