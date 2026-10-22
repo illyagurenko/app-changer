@@ -1,12 +1,43 @@
-2026-10-20 19:38:51.809 [main] INFO  r.itone.illya4gurenko.AppChangerMain - Starting app-changer (Java 21, No Spring)...
-2026-10-20 19:38:51.813 [main] INFO  r.i.illya4gurenko.db.LiquibaseRunner - starting liquibase migrations on postgreSQL
-2026-10-20 19:38:51.833 [main] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Starting...
-2026-10-20 19:38:52.222 [main] INFO  com.zaxxer.hikari.pool.HikariPool - AppChangerHikariPool - Added connection org.postgresql.jdbc.PgConnection@537f60bf
-2026-10-20 19:38:52.224 [main] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Start completed.
-2026-10-20 19:38:53.622 [main] INFO  r.i.illya4gurenko.db.LiquibaseRunner - liquibase migrations applied success
-2026-10-20 19:38:53.628 [main] INFO  r.itone.illya4gurenko.AppChangerMain - Config loaded successfully: SYSTEMID=GRU, PROTOCOL_IN=gru.balance.request, PROTOCOL_OUT=gru.balance.response, STATUS_IN=1, STATUS_OUT=1
-2026-10-20 19:38:53.628 [main] INFO  r.itone.illya4gurenko.AppChangerMain - Database schema and procedure verified 1-to-1 with requirements!
-2026-10-20 19:38:53.630 [Thread-0] INFO  r.itone.illya4gurenko.AppChangerMain - Closing DataSource...
-2026-10-20 19:38:53.630 [Thread-0] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Shutdown initiated...
-2026-10-20 19:38:53.643 [Thread-0] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Shutdown completed.
-2026-10-20 19:38:53.643 [Thread-0] INFO  r.itone.illya4gurenko.AppChangerMain - Service stopped.
+2026-10-22 15:53:35.459 [main] INFO  r.itone.illya4gurenko.AppChangerMain - Starting app-changer
+2026-10-22 15:53:35.479 [main] INFO  r.i.illya4gurenko.db.LiquibaseRunner - starting liquibase migrations on postgreSQL
+2026-10-22 15:53:35.502 [main] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Starting...
+2026-10-22 15:53:35.794 [main] INFO  com.zaxxer.hikari.pool.HikariPool - AppChangerHikariPool - Added connection org.postgresql.jdbc.PgConnection@2af004b
+2026-10-22 15:53:35.796 [main] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Start completed.
+2026-10-22 15:53:36.688 [main] ERROR r.i.illya4gurenko.db.LiquibaseRunner - liquibase migration failed
+liquibase.exception.CommandExecutionException: liquibase.exception.ValidationFailedException: Validation Failed:
+     1 changesets check sum
+          db/changelog/003-create-procedure.sql::006-create-changer-procedure::illya was: 9:591899e1d953e9cee7649d229660cc94 but is now: 9:1bfac83f69aa91f7fa5d75453840104c
+
+	at liquibase.command.CommandScope.execute(CommandScope.java:257)
+	at liquibase.Liquibase.lambda$update$0(Liquibase.java:245)
+	at liquibase.Scope.lambda$child$0(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:199)
+	at liquibase.Scope.child(Scope.java:189)
+	at liquibase.Scope.child(Scope.java:168)
+	at liquibase.Liquibase.runInScope(Liquibase.java:1436)
+	at liquibase.Liquibase.update(Liquibase.java:234)
+	at liquibase.Liquibase.update(Liquibase.java:212)
+	at liquibase.Liquibase.update(Liquibase.java:194)
+	at liquibase.Liquibase.update(Liquibase.java:179)
+	at ru.itone.illya4gurenko.db.LiquibaseRunner.runMigrations(LiquibaseRunner.java:28)
+	at ru.itone.illya4gurenko.AppChangerMain.main(AppChangerMain.java:19)
+Caused by: liquibase.exception.ValidationFailedException: Validation Failed:
+     1 changesets check sum
+          db/changelog/003-create-procedure.sql::006-create-changer-procedure::illya was: 9:591899e1d953e9cee7649d229660cc94 but is now: 9:1bfac83f69aa91f7fa5d75453840104c
+
+	at liquibase.changelog.DatabaseChangeLog.validate(DatabaseChangeLog.java:358)
+	at liquibase.command.core.helpers.DatabaseChangelogCommandStep.run(DatabaseChangelogCommandStep.java:92)
+	at liquibase.command.CommandScope.execute(CommandScope.java:219)
+	... 12 common frames omitted
+2026-10-22 15:57:21.098 [main] INFO  r.itone.illya4gurenko.AppChangerMain - Starting app-changer
+2026-10-22 15:57:21.101 [main] INFO  r.i.illya4gurenko.db.LiquibaseRunner - starting liquibase migrations on postgreSQL
+2026-10-22 15:57:21.117 [main] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Starting...
+2026-10-22 15:57:21.404 [main] INFO  com.zaxxer.hikari.pool.HikariPool - AppChangerHikariPool - Added connection org.postgresql.jdbc.PgConnection@38cee291
+2026-10-22 15:57:21.406 [main] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Start completed.
+2026-10-22 15:57:22.639 [main] INFO  r.i.illya4gurenko.db.LiquibaseRunner - liquibase migrations applied success
+2026-10-22 15:57:22.643 [main] INFO  r.itone.illya4gurenko.AppChangerMain - Config loaded successfully: SYSTEMID=GRU, PROTOCOL_IN=gru.balance.request, PROTOCOL_OUT=gru.balance.response, STATUS_IN=1, STATUS_OUT=1
+2026-10-22 15:57:22.643 [main] INFO  r.itone.illya4gurenko.AppChangerMain - database schema and procedure verified 1-to-1 with requirements!
+2026-10-22 15:57:22.644 [Thread-0] INFO  r.itone.illya4gurenko.AppChangerMain - closing DataSource...
+2026-10-22 15:57:22.645 [Thread-0] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Shutdown initiated...
+2026-10-22 15:57:22.653 [Thread-0] INFO  com.zaxxer.hikari.HikariDataSource - AppChangerHikariPool - Shutdown completed.
+2026-10-22 15:57:22.654 [Thread-0] INFO  r.itone.illya4gurenko.AppChangerMain - service stopped.

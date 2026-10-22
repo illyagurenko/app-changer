@@ -29,7 +29,7 @@ public class AppChangerMain {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             if (rs.next()) {
-                log.info("Config loaded successfully: SYSTEMID={}, PROTOCOL_IN={}, PROTOCOL_OUT={}, STATUS_IN={}, STATUS_OUT={}",
+                log.info("config loaded successfully: SYSTEMID={}, PROTOCOL_IN={}, PROTOCOL_OUT={}, STATUS_IN={}, STATUS_OUT={}",
                         rs.getString("SYSTEMID"),
                         rs.getString("PROTOCOL_IN"),
                         rs.getString("PROTOCOL_OUT"),
@@ -44,7 +44,7 @@ public class AppChangerMain {
         log.info("database schema and procedure verified 1-to-1 with requirements!");
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            log.info("closing DataSource...");
+            log.info("closing DataSource");
             DataSourceProvider.close();
             log.info("service stopped.");
         }));
