@@ -14,7 +14,7 @@ public class AppChangerMain {
     private static final Logger log = LoggerFactory.getLogger(AppChangerMain.class);
 
     public static void main(String[] args) {
-        log.info("Starting app-changer (Java 21, No Spring)...");
+        log.info("Starting app-changer");
 
         LiquibaseRunner.runMigrations();
 

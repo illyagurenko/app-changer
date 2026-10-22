@@ -13,28 +13,25 @@ import ru.itone.illya4gurenko.util.JsonUtils;
 import java.sql.Connection;
 import java.util.UUID;
 
-public class IngestionService {
-    private static final Logger log = LoggerFactory.getLogger(IngestionService.class);
+public class ConsumeService {
+    private static final Logger log = LoggerFactory.getLogger(ConsumeService.class);
 
     private final TransDao transDao;
     private final IoMsgsDao ioMsgsDao;
     private final String nodeId;
 
-    public IngestionService() {
+    public ConsumeService() {
         this.transDao = new TransDao();
         this.ioMsgsDao = new IoMsgsDao();
         this.nodeId = AppConfig.getInstance().getNodeId();
     }
 
-    /**
-     * Парсит метаданные и атомарно сохраняет входящее сообщение в TRANS и IO_MSGS.
-     */
-    public long processIncomingPayload(AppChangerConfigDto config, String rawJson, String recordKey) {
+    public long readAndSaveDb(AppChangerConfigDto config, String rawJson, String recordKey) {
         String requestId = recordKey;
         String systemId = config.systemId();
         String eventType = config.eventType();
 
-        // 1. Извлекаем метаданные из JSON
+        // извлекаем метаданные из JSON
         try {
             RequestKafkaDto dto = JsonUtils.fromJson(rawJson, RequestKafkaDto.class);
             if (dto.requestId() != null && !dto.requestId().isBlank()) {
@@ -47,13 +44,13 @@ public class IngestionService {
                 eventType = dto.eventType();
             }
         } catch (Exception e) {
-            log.warn("Could not parse JSON metadata, fallback to defaults: {}", e.getMessage());
+            log.warn("could not parse JSON metadata, fallback to defaults: {}", e.getMessage());
             if (requestId == null || requestId.isBlank()) {
                 requestId = "unknown-req-" + UUID.randomUUID();
             }
         }
 
-        // 2. Атомарное сохранение в БД (PostgreSQL)
+        // сохранение в БД
         try (Connection conn = DataSourceProvider.getConnection()) {
             conn.setAutoCommit(false);
             try {
@@ -77,16 +74,16 @@ public class IngestionService {
                 );
 
                 conn.commit();
-                log.info("Persisted transaction: transId={}, requestId={}, status=RECEIVED", transId, requestId);
+                log.info("persisted transaction: transId={}, requestId={}, status=RECEIVED", transId, requestId);
                 return transId;
 
             } catch (Exception e) {
                 conn.rollback();
-                log.error("Failed to persist transaction, rolled back. RequestId: {}", requestId, e);
-                throw new RuntimeException("Database error during payload persistence", e);
+                log.error("failed to persist transaction, rolled back. requestId: {}", requestId, e);
+                throw new RuntimeException("database error during payload persistence", e);
             }
         } catch (Exception e) {
-            log.error("Connection pool error in IngestionService", e);
+            log.error("connection pool error in consumer service", e);
             throw new RuntimeException(e);
         }
     }

@@ -8,29 +8,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dto.AppChangerConfigDto;
 import ru.itone.illya4gurenko.kafka.KafkaConsumerFactory;
-import ru.itone.illya4gurenko.service.IngestionService;
+import ru.itone.illya4gurenko.service.ConsumeService;
 
 import java.time.Duration;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class IngestionWorker implements Runnable {
-    private static final Logger log = LoggerFactory.getLogger(IngestionWorker.class);
+public class ConsumeWorker implements Runnable {
+    private static final Logger log = LoggerFactory.getLogger(ConsumeWorker.class);
 
     private final AppChangerConfigDto config;
-    private final IngestionService ingestionService;
+    private final ConsumeService consumeService;
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
     private KafkaConsumer<String, String> consumer;
 
-    public IngestionWorker(AppChangerConfigDto config) {
+    public ConsumeWorker(AppChangerConfigDto config) {
         this.config = config;
-        this.ingestionService = new IngestionService();
+        this.consumeService = new ConsumeService();
     }
 
     @Override
     public void run() {
         String topicIn = config.protocolIn();
-        log.info("Starting IngestionWorker thread on topic: {}", topicIn);
+        log.info("starting consumer worker thread on topic: {}", topicIn);
 
         this.consumer = KafkaConsumerFactory.createConsumer(null);
         consumer.subscribe(Collections.singletonList(topicIn));
@@ -43,30 +43,30 @@ public class IngestionWorker implements Runnable {
                     continue;
                 }
 
-                log.info("Polled {} records from topic: {}", records.count(), topicIn);
+                log.info("polled {} records from topic: {}", records.count(), topicIn);
 
                 for (ConsumerRecord<String, String> record : records) {
-                    ingestionService.processIncomingPayload(config, record.value(), record.key());
+                    consumeService.readAndSaveDb(config, record.value(), record.key());
                 }
 
-                // Коммитим смещение в Kafka только когда ВСЯ пачка успешно записана в БД
+                // коммитим смещение в кafka только когда вся пачка успешно записана в БД
                 consumer.commitSync();
-                log.debug("Batch committed successfully to Kafka offset.");
+                log.debug("batch committed successfully to Kafka offset.");
             }
         } catch (WakeupException e) {
             if (isRunning.get()) {
-                log.error("Unexpected wakeup in IngestionWorker", e);
+                log.error("unexpected wakeup in consumer worker", e);
             }
         } catch (Exception e) {
-            log.error("Fatal error in IngestionWorker loop", e);
+            log.error("Fatal error in consumer worker loop", e);
         } finally {
             closeQuietly();
-            log.info("IngestionWorker thread terminated.");
+            log.info("consumer worker thread terminated.");
         }
     }
 
     public void stop() {
-        log.info("Stopping IngestionWorker...");
+        log.info("stopping consumer worker");
         isRunning.set(false);
         if (consumer != null) {
             consumer.wakeup();
@@ -78,7 +78,7 @@ public class IngestionWorker implements Runnable {
             try {
                 consumer.close();
             } catch (Exception e) {
-                log.error("Error closing Kafka consumer", e);
+                log.error("error closing kafka consumer", e);
             }
         }
     }
