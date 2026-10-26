@@ -1,6 +1,7 @@
 package ru.itone.illya4gurenko.dao;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import ru.itone.illya4gurenko.dto.ReadyToSendRecord;
 import ru.itone.illya4gurenko.dto.TransRecord;
 
 import java.sql.Connection;
@@ -108,6 +109,52 @@ public class TransDao {
             ps.setString(3, respCode);
             ps.setString(4, respDesc);
             ps.setLong(5, transId);
+            ps.executeUpdate();
+        }
+    }
+
+    /**
+     * выбирает пачку транзакций, готовых к отправке (READY_TO_SEND)
+     */
+    public List<ReadyToSendRecord> fetchBatchForSending(Connection conn, int limit) throws SQLException {
+        String sql = """
+        SELECT "ID", "REQUEST_ID", "SYSTEM_ID", "PROTOCOL_TYPE", "RESP_DATA"
+        FROM "ACC_APP_CHANGER"."APP_CHANGER_TRANS"
+        WHERE "STATUS" = 'READY_TO_SEND'
+        ORDER BY "ID" ASC
+        LIMIT ?
+        FOR UPDATE SKIP LOCKED
+    """;
+
+        List<ReadyToSendRecord> list = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new ReadyToSendRecord(
+                            rs.getLong("ID"),
+                            rs.getString("REQUEST_ID"),
+                            rs.getString("SYSTEM_ID"),
+                            rs.getString("PROTOCOL_TYPE"),
+                            rs.getString("resp_DATA")
+                    ));
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * переводит транзакцию в финальный статус COMPLETED
+     */
+    public void updateCompleted(Connection conn, long transId) throws SQLException {
+        String sql = """
+        UPDATE "ACC_APP_CHANGER"."APP_CHANGER_TRANS"
+        SET "STATUS" = 'COMPLETED', "UPD_TS" = now()
+        WHERE "ID" = ?
+    """;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, transId);
             ps.executeUpdate();
         }
     }

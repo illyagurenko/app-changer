@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dao.ConfigDao;
 import ru.itone.illya4gurenko.dto.AppChangerConfigDto;
 import ru.itone.illya4gurenko.worker.ConsumeWorker;
+import ru.itone.illya4gurenko.worker.ProduceWorker;
 import ru.itone.illya4gurenko.worker.ProcessingWorker;
 
 @QuarkusMain
@@ -28,18 +29,20 @@ public class AppChangerMain {
     @Inject
     ProcessingWorker processingWorker;
 
+    @Inject
+    ProduceWorker produceWorker;
+
     private Thread consumeThread;
     private Thread processingThread;
+    private Thread dispatcherThread;
 
     public static void main(String[] args) {
-        // запуск среды Quarkus
         Quarkus.run(args);
     }
 
     void onStart(@Observes StartupEvent ev) {
         log.info("starting app-changer on Quarkus");
 
-        // читаем конфигурацию из БД через ConfigDao
         AppChangerConfigDto config = configDao.findBySystemId("GRU");
         if (config == null) {
             log.error("config for SYSTEMID='GRU' not found in database!");
@@ -50,32 +53,35 @@ public class AppChangerMain {
                 config.systemId(), config.protocolIn(), config.protocolOut(),
                 config.statusIn(), config.statusOut());
 
-        //  Запуск Потока 1 (ConsumeWorker)
+        // Поток 1: Consumer (Kafka IN -> TRANS 'RECEIVED')
         if (config.statusIn() == 1) {
             consumeWorker.init(config);
             consumeThread = new Thread(consumeWorker, "consume-worker-thread");
             consumeThread.start();
             log.info("consumeWorker thread started on topic: {}", config.protocolIn());
-        } else {
-            log.warn("ingestion is disabled (STATUS_IN=0)");
         }
 
-        // Запуск Потока 2 (ProcessingWorker)
+        // Поток 2: Processor ('RECEIVED' -> Procedure -> 'READY_TO_SEND')
         processingThread = new Thread(processingWorker, "processing-worker-thread");
         processingThread.start();
         log.info("processingWorker thread started.");
+
+        // Поток 3: Dispatcher ('READY_TO_SEND' -> Kafka OUT -> 'COMPLETED')
+        if (config.statusOut() == 1) {
+            produceWorker.init(config);
+            dispatcherThread = new Thread(produceWorker, "produce-worker-thread");
+            dispatcherThread.start();
+            log.info("produceWorker thread started on topic: {}", config.protocolOut());
+        }
     }
 
     void onStop(@Observes ShutdownEvent ev) {
         log.info("stopping app-changer workers");
 
-        if (consumeWorker != null) {
-            consumeWorker.stop();
-        }
-        if (processingWorker != null) {
-            processingWorker.stop();
-        }
+        if (consumeWorker != null) consumeWorker.stop();
+        if (processingWorker != null) processingWorker.stop();
+        if (produceWorker != null) produceWorker.stop();
 
-        log.info("workers stopped. Shutdown complete.");
+        log.info("all workers stopped. Shutdown complete.");
     }
 }
