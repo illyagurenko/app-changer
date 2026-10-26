@@ -1,5 +1,6 @@
 package ru.itone.illya4gurenko.dao;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dto.ProcedureResult;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@ApplicationScoped
 public class ProcedureDao {
     private static final Logger log = LoggerFactory.getLogger(ProcedureDao.class);
 

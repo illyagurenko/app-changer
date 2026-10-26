@@ -1,40 +1,45 @@
 package ru.itone.illya4gurenko.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dao.ProcedureDao;
 import ru.itone.illya4gurenko.dao.TransDao;
-import ru.itone.illya4gurenko.db.DataSourceProvider;
 import ru.itone.illya4gurenko.dto.*;
 import ru.itone.illya4gurenko.util.JsonUtils;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class ProcessingService {
     private static final Logger log = LoggerFactory.getLogger(ProcessingService.class);
 
-    private final TransDao transDao;
-    private final ProcedureDao procedureDao;
-    private final AppControllerClient appControllerClient;
+    @Inject
+    DataSource dataSource;
 
-    public ProcessingService() {
-        this.transDao = new TransDao();
-        this.procedureDao = new ProcedureDao();
-        this.appControllerClient = new AppControllerClient();
-    }
+    @Inject
+    TransDao transDao;
+
+    @Inject
+    ProcedureDao procedureDao;
+
+    @Inject
+    AppControllerClient appControllerClient;
 
     public void processTransaction(TransRecord record) {
         long transId = record.id();
         String requestId = record.requestId();
-        log.info("Processing transaction: id={}, requestId={}", transId, requestId);
+        log.info("processing transaction: id={}, requestId={}", transId, requestId);
 
-        try (Connection conn = DataSourceProvider.getConnection()) {
+        try (Connection conn = dataSource.getConnection()) {
             conn.setAutoCommit(false);
 
             try {
-                // 1. Меняем статус на IN_PROCESS
+                //  Меняем статус на IN_PROCESS
                 transDao.updateStatus(conn, transId, "IN_PROCESS");
                 conn.commit(); // фиксируем переход в обработку
             } catch (Exception e) {
@@ -45,26 +50,26 @@ public class ProcessingService {
 
             // Начинаем бизнес-транзакцию
             try {
-                // 2. Разбираем вычитанный JSON
+                //разбираем вычитанный JSON
                 RequestKafkaDto requestDto = JsonUtils.fromJson(record.reqData(), RequestKafkaDto.class);
 
-                // 3. Отправляем счета в APP_CONTROLLER
+                // отправляем счета в APP_CONTROLLER
                 boolean routingOk = appControllerClient.checkAndRouteAccounts(requestDto.events());
                 if (!routingOk) {
                     failTransaction(conn, transId, requestId, requestDto, "APP_CONTROLLER routing rejected accounts");
                     return;
                 }
 
-                // 4. Вызываем процедуру changer_data_account
+                // вызываем процедуру changer_data_account
                 ProcedureResult procResult = procedureDao.executeChangerDataAccount(conn, requestDto.events());
 
-                // 5. Формируем ответ ResponseKafkaDto
+                // формируем ответ ResponseKafkaDto
                 ResponseKafkaDto responseDto;
                 String respCode;
                 String respDesc;
 
                 if (procResult.code() == 0) {
-                    // Успех: собираем данные с новыми балансами
+                    // успех собираем данные с новыми балансами
                     List<ResponseEventDto> responseEvents = new ArrayList<>();
 
                     for (RequestEventDto event : requestDto.events()) {
@@ -114,20 +119,20 @@ public class ProcessingService {
                     respDesc = procResult.message();
                 }
 
-                // 6. Сериализуем ответ в JSON и пишем в resp_DATA со статусом READY_TO_SEND
+                // сериализуем ответ в JSON и пишем в RESP_DATA со статусом READY_TO_SEND
                 String respJson = JsonUtils.toJson(responseDto);
                 transDao.updateResponse(conn, transId, respJson, "READY_TO_SEND", respCode, respDesc);
 
                 conn.commit();
-                log.info("Transaction id={} successfully processed -> READY_TO_SEND", transId);
+                log.info("transaction id={} successfully processed -> READY_TO_SEND", transId);
 
             } catch (Exception e) {
                 conn.rollback();
-                log.error("Error during business processing of transId={}", transId, e);
+                log.error("error during business processing of transId={}", transId, e);
                 markFailed(transId, e.getMessage());
             }
         } catch (Exception e) {
-            log.error("Database connection error in ProcessingService for transId={}", transId, e);
+            log.error("database connection error in ProcessingService for transId={}", transId, e);
         }
     }
 
@@ -149,7 +154,7 @@ public class ProcessingService {
     }
 
     private void markFailed(long transId, String errorMsg) {
-        try (Connection conn = DataSourceProvider.getConnection()) {
+        try (Connection conn = dataSource.getConnection()) {
             transDao.updateStatus(conn, transId, "PROCESSING_ERROR");
         } catch (Exception ex) {
             log.error("Failed to set PROCESSING_ERROR for transId={}", transId, ex);

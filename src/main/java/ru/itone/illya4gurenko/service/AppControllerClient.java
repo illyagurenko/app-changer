@@ -1,16 +1,18 @@
 package ru.itone.illya4gurenko.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dto.RequestEventDto;
 
 import java.util.List;
 
+@ApplicationScoped
 public class AppControllerClient {
     private static final Logger log = LoggerFactory.getLogger(AppControllerClient.class);
 
     /**
-     * Эмулирует обращение в APP_CONTROLLER для валидации и маршрутизации счетов.
+     * эмулирует обращение в APP_CONTROLLER для валидации и маршрутизации счетов
      */
     public boolean checkAndRouteAccounts(List<RequestEventDto> events) {
         if (events == null || events.isEmpty()) {
@@ -25,7 +27,7 @@ public class AppControllerClient {
                 return false;
             }
         }
-        // В нашем контуре все счета успешно маршрутизируются в схему ACC_APP_CHANGER
+        // все счета успешно маршрутизируются в схему ACC_APP_CHANGER
         return true;
     }
 }

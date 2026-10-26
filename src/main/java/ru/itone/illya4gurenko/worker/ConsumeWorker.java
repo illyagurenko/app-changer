@@ -1,5 +1,7 @@
 package ru.itone.illya4gurenko.worker;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -14,25 +16,34 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+@ApplicationScoped
 public class ConsumeWorker implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(ConsumeWorker.class);
 
-    private final AppChangerConfigDto config;
-    private final ConsumeService consumeService;
+    @Inject
+    ConsumeService consumeService;
+
+    @Inject
+    KafkaConsumerFactory consumerFactory;
+
+    private AppChangerConfigDto config;
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
     private KafkaConsumer<String, String> consumer;
 
-    public ConsumeWorker(AppChangerConfigDto config) {
+    public void init(AppChangerConfigDto config) {
         this.config = config;
-        this.consumeService = new ConsumeService();
     }
 
     @Override
     public void run() {
-        String topicIn = config.protocolIn();
-        log.info("starting consumer worker thread on topic: {}", topicIn);
+        if (config == null) {
+            throw new IllegalStateException("consumeWorker is not initialized! Call init(config) first.");
+        }
 
-        this.consumer = KafkaConsumerFactory.createConsumer(null);
+        String topicIn = config.protocolIn();
+        log.info("starting consumeWorker thread on topic: {}", topicIn);
+
+        this.consumer = consumerFactory.createConsumer(null);
         consumer.subscribe(Collections.singletonList(topicIn));
 
         try {
@@ -49,24 +60,24 @@ public class ConsumeWorker implements Runnable {
                     consumeService.readAndSaveDb(config, record.value(), record.key());
                 }
 
-                // коммитим смещение в кafka только когда вся пачка успешно записана в БД
+                // коммитим смещение в Kafka только когда вся пачка успешно записана в БД
                 consumer.commitSync();
                 log.debug("batch committed successfully to Kafka offset.");
             }
         } catch (WakeupException e) {
             if (isRunning.get()) {
-                log.error("unexpected wakeup in consumer worker", e);
+                log.error("unexpected wakeup in ConsumeWorker", e);
             }
         } catch (Exception e) {
-            log.error("Fatal error in consumer worker loop", e);
+            log.error("fatal error in consumeWorker loop", e);
         } finally {
             closeQuietly();
-            log.info("consumer worker thread terminated.");
+            log.info("consumeWorker thread terminated.");
         }
     }
 
     public void stop() {
-        log.info("stopping consumer worker");
+        log.info("stopping consumeWorker");
         isRunning.set(false);
         if (consumer != null) {
             consumer.wakeup();
@@ -78,7 +89,7 @@ public class ConsumeWorker implements Runnable {
             try {
                 consumer.close();
             } catch (Exception e) {
-                log.error("error closing kafka consumer", e);
+                log.error("error closing Kafka consumer", e);
             }
         }
     }

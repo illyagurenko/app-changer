@@ -1,9 +1,12 @@
 package ru.itone.illya4gurenko.dao;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+@ApplicationScoped
 public class IoMsgsDao {
 
     public void insertIoMsg(Connection conn, long transId, String protocolType,

@@ -1,30 +1,35 @@
 package ru.itone.illya4gurenko.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.itone.illya4gurenko.config.AppConfig;
 import ru.itone.illya4gurenko.dao.IoMsgsDao;
 import ru.itone.illya4gurenko.dao.TransDao;
-import ru.itone.illya4gurenko.db.DataSourceProvider;
 import ru.itone.illya4gurenko.dto.AppChangerConfigDto;
 import ru.itone.illya4gurenko.dto.RequestKafkaDto;
 import ru.itone.illya4gurenko.util.JsonUtils;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.UUID;
 
+@ApplicationScoped
 public class ConsumeService {
     private static final Logger log = LoggerFactory.getLogger(ConsumeService.class);
 
-    private final TransDao transDao;
-    private final IoMsgsDao ioMsgsDao;
-    private final String nodeId;
+    @Inject
+    DataSource dataSource;
 
-    public ConsumeService() {
-        this.transDao = new TransDao();
-        this.ioMsgsDao = new IoMsgsDao();
-        this.nodeId = AppConfig.getInstance().getNodeId();
-    }
+    @Inject
+    TransDao transDao;
+
+    @Inject
+    IoMsgsDao ioMsgsDao;
+
+    @ConfigProperty(name = "app.node-id", defaultValue = "162")
+    String nodeId;
 
     public long readAndSaveDb(AppChangerConfigDto config, String rawJson, String recordKey) {
         String requestId = recordKey;
@@ -44,14 +49,14 @@ public class ConsumeService {
                 eventType = dto.eventType();
             }
         } catch (Exception e) {
-            log.warn("could not parse JSON metadata, fallback to defaults: {}", e.getMessage());
+            log.warn("could not parse JSON metadata: {}", e.getMessage());
             if (requestId == null || requestId.isBlank()) {
                 requestId = "unknown-req-" + UUID.randomUUID();
             }
         }
 
-        // сохранение в БД
-        try (Connection conn = DataSourceProvider.getConnection()) {
+        // сохранение в БД через инжектированный пул Quarkus dataSource
+        try (Connection conn = dataSource.getConnection()) {
             conn.setAutoCommit(false);
             try {
                 long transId = transDao.insertReceived(
@@ -79,11 +84,11 @@ public class ConsumeService {
 
             } catch (Exception e) {
                 conn.rollback();
-                log.error("failed to persist transaction, rolled back. requestId: {}", requestId, e);
-                throw new RuntimeException("database error during payload persistence", e);
+                log.error("failed to persist transaction, rolled back. RequestId: {}", requestId, e);
+                throw new RuntimeException("Database error during payload persistence", e);
             }
         } catch (Exception e) {
-            log.error("connection pool error in consumer service", e);
+            log.error("connection pool error in ConsumeService", e);
             throw new RuntimeException(e);
         }
     }

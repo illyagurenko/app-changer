@@ -1,16 +1,6 @@
 plugins {
     id 'java'
-    id 'application'
-    id 'com.gradleup.shadow' version '9.0.1'
-}
-
-group = 'ru.itone.illya4gurenko'
-version = '1.0.0'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+    id 'io.quarkus' version '3.15.1'
 }
 
 repositories {
@@ -18,38 +8,26 @@ repositories {
 }
 
 dependencies {
-    // база данных
-    implementation 'org.postgresql:postgresql:42.7.3'
-    implementation 'com.zaxxer:HikariCP:5.1.0'
-    implementation 'org.liquibase:liquibase-core:4.27.0'
+    implementation enforcedPlatform('io.quarkus.platform:quarkus-bom:3.15.1')
 
-    // Kafka Client
-    implementation 'org.apache.kafka:kafka-clients:3.7.0'
+    implementation 'io.quarkus:quarkus-jdbc-postgresql'
+    implementation 'io.quarkus:quarkus-liquibase'
+    implementation 'io.quarkus:quarkus-kafka-client'
+    implementation 'io.quarkus:quarkus-jackson'
+    implementation 'io.quarkus:quarkus-arc'
 
-    // JSON парсинг
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0'
-
-    // логирование
-    implementation 'ch.qos.logback:logback-classic:1.5.3'
-    implementation 'org.slf4j:slf4j-api:2.0.12'
-
-    // тесты
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    testImplementation 'org.assertj:assertj-core:3.25.3'
+    testImplementation 'io.quarkus:quarkus-junit5'
 }
 
-application {
-    mainClass = 'ru.itone.illya4gurenko.changer.AppChangerMain'
+group = 'ru.itone.illya4gurenko'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
-
-tasks.named('shadowJar') {
-    archiveClassifier.set('all')
-    mergeServiceFiles()
-
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
 }

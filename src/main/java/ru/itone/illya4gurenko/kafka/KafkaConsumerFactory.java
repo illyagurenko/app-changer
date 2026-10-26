@@ -1,5 +1,7 @@
 package ru.itone.illya4gurenko.kafka;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -7,16 +9,16 @@ import ru.itone.illya4gurenko.config.AppConfig;
 
 import java.util.Properties;
 
-public final class KafkaConsumerFactory {
+@ApplicationScoped
+public class KafkaConsumerFactory {
 
-    private KafkaConsumerFactory() {}
+    @Inject
+    AppConfig appConfig;
 
-    public static KafkaConsumer<String, String> createConsumer(String customGroupId) {
-        AppConfig config = AppConfig.getInstance();
-
+    public KafkaConsumer<String, String> createConsumer(String customGroupId) {
         Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, config.get("kafka.bootstrap-servers", "localhost:9092"));
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, customGroupId != null ? customGroupId : config.get("kafka.group.id", "app-changer-group"));
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, appConfig.getKafkaBootstrapServers());
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, customGroupId != null ? customGroupId : appConfig.getKafkaGroupId());
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");

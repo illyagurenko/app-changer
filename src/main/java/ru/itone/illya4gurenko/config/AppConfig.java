@@ -1,37 +1,29 @@
 package ru.itone.illya4gurenko.config;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import java.io.InputStream;
-import java.util.Properties;
-
+@ApplicationScoped
 public class AppConfig {
-    private static final AppConfig INSTANCE = new AppConfig();
-    private final Properties properties = new Properties();
 
-    private AppConfig() {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream("application.properties")) {
-            if (is != null) {
-                properties.load(is);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("failed to load application.properties", e);
-        }
+    @ConfigProperty(name = "kafka.bootstrap-servers", defaultValue = "localhost:9092")
+    String kafkaBootstrapServers;
+
+    @ConfigProperty(name = "kafka.group-id", defaultValue = "app-changer-group")
+    String kafkaGroupId;
+
+    @ConfigProperty(name = "app.node-id", defaultValue = "162")
+    String nodeId;
+
+    public String getKafkaBootstrapServers() {
+        return kafkaBootstrapServers;
     }
 
-    public static AppConfig getInstance() {
-        return INSTANCE;
+    public String getKafkaGroupId() {
+        return kafkaGroupId;
     }
 
-    public String get(String key, String def) {
-        String envKey = key.replace('.', '_').toUpperCase();
-        String envVal = System.getenv(envKey);
-        if (envVal != null && !envVal.isBlank()) return envVal;
-        return properties.getProperty(key, def);
+    public String getNodeId() {
+        return nodeId;
     }
-
-    public String getDbUrl() { return get("db.url", "jdbc:postgresql://localhost:5432/changer_db"); }
-    public String getDbUsername() { return get("db.username", "changer_user"); }
-    public String getDbPassword() { return get("db.password", "root"); }
-    public int getDbPoolSize() { return Integer.parseInt(get("db.pool.size", "10")); }
-    public String getNodeId() { return get("app.node.id", "162"); }
 }

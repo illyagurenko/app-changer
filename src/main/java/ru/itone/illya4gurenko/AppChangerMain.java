@@ -1,52 +1,81 @@
 package ru.itone.illya4gurenko;
 
+import io.quarkus.runtime.Quarkus;
+import io.quarkus.runtime.ShutdownEvent;
+import io.quarkus.runtime.StartupEvent;
+import io.quarkus.runtime.annotations.QuarkusMain;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.itone.illya4gurenko.db.DataSourceProvider;
-import ru.itone.illya4gurenko.db.LiquibaseRunner;
+import ru.itone.illya4gurenko.dao.ConfigDao;
+import ru.itone.illya4gurenko.dto.AppChangerConfigDto;
+import ru.itone.illya4gurenko.worker.ConsumeWorker;
+import ru.itone.illya4gurenko.worker.ProcessingWorker;
 
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
+@QuarkusMain
+@ApplicationScoped
 public class AppChangerMain {
     private static final Logger log = LoggerFactory.getLogger(AppChangerMain.class);
 
+    @Inject
+    ConfigDao configDao;
+
+    @Inject
+    ConsumeWorker consumeWorker;
+
+    @Inject
+    ProcessingWorker processingWorker;
+
+    private Thread consumeThread;
+    private Thread processingThread;
+
     public static void main(String[] args) {
-        log.info("Starting app-changer");
+        // запуск среды Quarkus
+        Quarkus.run(args);
+    }
 
-        LiquibaseRunner.runMigrations();
+    void onStart(@Observes StartupEvent ev) {
+        log.info("starting app-changer on Quarkus");
 
-        String sql = """
-            SELECT "SYSTEMID", "PROTOCOL_IN", "PROTOCOL_OUT", "STATUS_IN", "STATUS_OUT"
-            FROM "ACC_APP_CHANGER"."APP_CHANGER_CONFIG"
-            WHERE "SYSTEMID" = 'GRU'
-        """;
-
-        try (Connection conn = DataSourceProvider.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            if (rs.next()) {
-                log.info("config loaded successfully: SYSTEMID={}, PROTOCOL_IN={}, PROTOCOL_OUT={}, STATUS_IN={}, STATUS_OUT={}",
-                        rs.getString("SYSTEMID"),
-                        rs.getString("PROTOCOL_IN"),
-                        rs.getString("PROTOCOL_OUT"),
-                        rs.getInt("STATUS_IN"),
-                        rs.getInt("STATUS_OUT"));
-            }
-        } catch (Exception e) {
-            log.error("failed to read from ACC_APP_CHANGER.APP_CHANGER_CONFIG", e);
-            System.exit(1);
+        // читаем конфигурацию из БД через ConfigDao
+        AppChangerConfigDto config = configDao.findBySystemId("GRU");
+        if (config == null) {
+            log.error("config for SYSTEMID='GRU' not found in database!");
+            return;
         }
 
-        log.info("database schema and procedure verified 1-to-1 with requirements!");
+        log.info("loaded config: SYSTEMID={}, IN={}, OUT={}, STATUS_IN={}, STATUS_OUT={}",
+                config.systemId(), config.protocolIn(), config.protocolOut(),
+                config.statusIn(), config.statusOut());
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            log.info("closing DataSource");
-            DataSourceProvider.close();
-            log.info("service stopped.");
-        }));
+        //  Запуск Потока 1 (ConsumeWorker)
+        if (config.statusIn() == 1) {
+            consumeWorker.init(config);
+            consumeThread = new Thread(consumeWorker, "consume-worker-thread");
+            consumeThread.start();
+            log.info("consumeWorker thread started on topic: {}", config.protocolIn());
+        } else {
+            log.warn("ingestion is disabled (STATUS_IN=0)");
+        }
+
+        // Запуск Потока 2 (ProcessingWorker)
+        processingThread = new Thread(processingWorker, "processing-worker-thread");
+        processingThread.start();
+        log.info("processingWorker thread started.");
+    }
+
+    void onStop(@Observes ShutdownEvent ev) {
+        log.info("stopping app-changer workers");
+
+        if (consumeWorker != null) {
+            consumeWorker.stop();
+        }
+        if (processingWorker != null) {
+            processingWorker.stop();
+        }
+
+        log.info("workers stopped. Shutdown complete.");
     }
 }

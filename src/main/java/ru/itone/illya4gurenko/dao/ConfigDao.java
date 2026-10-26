@@ -1,14 +1,20 @@
 package ru.itone.illya4gurenko.dao;
 
-import ru.itone.illya4gurenko.db.DataSourceProvider;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import ru.itone.illya4gurenko.dto.AppChangerConfigDto;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@ApplicationScoped
 public class ConfigDao {
+
+    @Inject
+    DataSource dataSource;
 
     public AppChangerConfigDto findBySystemId(String systemId) {
         String sql = """
@@ -19,7 +25,7 @@ public class ConfigDao {
             WHERE "SYSTEMID" = ?
         """;
 
-        try (Connection conn = DataSourceProvider.getConnection();
+        try (Connection conn = dataSource.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, systemId);

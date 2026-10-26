@@ -1,5 +1,6 @@
 package ru.itone.illya4gurenko.dao;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import ru.itone.illya4gurenko.dto.TransRecord;
 
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class TransDao {
 
     /**
