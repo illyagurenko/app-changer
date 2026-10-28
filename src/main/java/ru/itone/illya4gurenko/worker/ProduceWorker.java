@@ -5,104 +5,67 @@ import jakarta.inject.Inject;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.itone.illya4gurenko.dao.TransDao;
-import ru.itone.illya4gurenko.dto.AppChangerConfigDto;
-import ru.itone.illya4gurenko.dto.ReadyToSendRecord;
+import ru.itone.illya4gurenko.entity.AppChangerConfig;
+import ru.itone.illya4gurenko.entity.AppChangerTrans;
 import ru.itone.illya4gurenko.kafka.KafkaProducerFactory;
 import ru.itone.illya4gurenko.service.ProduceService;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * поток отправки обработанных сообщений наружу
+ */
 @ApplicationScoped
 public class ProduceWorker implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(ProduceWorker.class);
 
     @Inject
-    DataSource dataSource;
-
-    @Inject
-    TransDao transDao;
-
-    @Inject
-    ProduceService dispatcherService;
+    ProduceService produceService;
 
     @Inject
     KafkaProducerFactory producerFactory;
 
-    private AppChangerConfigDto config;
+    private AppChangerConfig config;
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
     private KafkaProducer<String, String> producer;
 
-    public void init(AppChangerConfigDto config) {
+    public void init(AppChangerConfig config) {
         this.config = config;
     }
 
     @Override
     public void run() {
-        if (config == null) {
-            throw new IllegalStateException("produceWorker is not initialized! Call init(config) first.");
-        }
-
-        String topicOut = config.protocolOut();
-        log.info("starting produceWorker thread on topic: {}", topicOut);
-
+        log.info("starting produce worker thread on topic: {}", config.protocolOut);
         this.producer = producerFactory.createProducer();
 
         while (isRunning.get()) {
             try {
-                List<ReadyToSendRecord> batch;
+                List<Long> ids = AppChangerTrans.findIdsByStatus("READY_TO_SEND", 10);
 
-                try (Connection conn = dataSource.getConnection()) {
-                    batch = transDao.fetchBatchForSending(conn, 10);
-                }
-
-                if (batch.isEmpty()) {
+                if (ids.isEmpty()) {
                     Thread.sleep(1000);
                     continue;
                 }
 
-                log.info("found {} transaction(s) ready to send", batch.size());
-
-                for (ReadyToSendRecord record : batch) {
+                for (Long id : ids) {
                     if (!isRunning.get()) break;
-                    dispatcherService.dispatch(producer, topicOut, record);
+                    produceService.dispatchTransaction(id, producer, config.protocolOut);
                 }
 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                log.info("produceWorker interrupted.");
                 break;
             } catch (Exception e) {
-                log.error("error in produceWorker loop", e);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
+                log.error("error in produce worker loop", e);
+                try { Thread.sleep(2000); } catch (InterruptedException ex) { break; }
             }
         }
-
-        closeQuietly();
-        log.info("produceWorker thread terminated.");
+        if (producer != null) producer.close();
+        log.info("produce worker thread terminated");
     }
 
     public void stop() {
-        log.info("stopping produceWorker");
         isRunning.set(false);
-    }
-
-    private void closeQuietly() {
-        if (producer != null) {
-            try {
-                producer.flush();
-                producer.close();
-            } catch (Exception e) {
-                log.error("error closing Kafka producer", e);
-            }
-        }
     }
 }

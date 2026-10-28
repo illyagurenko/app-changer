@@ -4,16 +4,15 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 /**
- * результат работы хранимой процедуры changer_data_account
- *
- * @param code       код ответа 0 - успех
- * @param message    сообщение об ошибке null если успешно
- * @param balancesByAccount мапа: номер счета -> балансы oldTbal, newTbal
+ * результат работы хранимой процедуры базы данных
  */
 public record ProcedureResult(
         int code,
         String message,
         Map<String, CalculatedBalance> balancesByAccount
 ) {
+    /**
+     * рассчитанные балансы до и после операции
+     */
     public record CalculatedBalance(BigDecimal oldTbal, BigDecimal newTbal) {}
 }

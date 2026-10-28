@@ -3,6 +3,9 @@ package ru.itone.illya4gurenko.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
 
+/**
+ * корневой json исходящего ответа для отправки в кафку
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ResponseKafkaDto(
         Long actualTimestamp,

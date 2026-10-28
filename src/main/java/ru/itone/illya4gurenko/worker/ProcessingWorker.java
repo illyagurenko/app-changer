@@ -5,20 +5,17 @@ import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dao.TransDao;
-import ru.itone.illya4gurenko.dto.TransRecord;
 import ru.itone.illya4gurenko.service.ProcessingService;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * поток обработки полученных транзакций
+ */
 @ApplicationScoped
 public class ProcessingWorker implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(ProcessingWorker.class);
-
-    @Inject
-    DataSource dataSource;
 
     @Inject
     TransDao transDao;
@@ -30,50 +27,35 @@ public class ProcessingWorker implements Runnable {
 
     @Override
     public void run() {
-        log.info("starting ProcessingWorker thread");
+        log.info("starting processing worker thread");
 
         while (isRunning.get()) {
             try {
-                List<TransRecord> batch;
+                // Вызываем DAO
+                List<Long> ids = transDao.findIdsByStatus("RECEIVED", 10);
 
-                try (Connection conn = dataSource.getConnection()) {
-                    // Выбираем пачку записей со статусом RECEIVED
-                    batch = transDao.fetchBatchForProcessing(conn, 10);
-                }
-
-                if (batch.isEmpty()) {
-                    // если записей нет, ждем 1 секунду
+                if (ids.isEmpty()) {
                     Thread.sleep(1000);
                     continue;
                 }
 
-                log.info("found {} transaction(s) ready for processing", batch.size());
-
-                for (TransRecord record : batch) {
+                for (Long id : ids) {
                     if (!isRunning.get()) break;
-                    processingService.processTransaction(record);
+                    processingService.processTransaction(id);
                 }
 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                log.info("pProcessingWorker interrupted.");
                 break;
             } catch (Exception e) {
-                log.error("error in processingWorker loop", e);
-                try {
-                    Thread.sleep(2000); // пауза при сбое БД
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                    break;
-                }
+                log.error("error in processing worker loop", e);
+                try { Thread.sleep(2000); } catch (InterruptedException ex) { break; }
             }
         }
-
-        log.info("processingWorker thread terminated.");
+        log.info("processing worker thread terminated");
     }
 
     public void stop() {
-        log.info("stopping processingWorker");
         isRunning.set(false);
     }
 }

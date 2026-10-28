@@ -1,8 +1,8 @@
 package ru.itone.illya4gurenko.service;
 
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -10,17 +10,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dao.IoMsgsDao;
 import ru.itone.illya4gurenko.dao.TransDao;
-import ru.itone.illya4gurenko.dto.ReadyToSendRecord;
+import ru.itone.illya4gurenko.entity.AppChangerTrans;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
+import java.time.ZonedDateTime;
 
+/**
+ * сервис отправки готовых сообщений
+ */
 @ApplicationScoped
 public class ProduceService {
     private static final Logger log = LoggerFactory.getLogger(ProduceService.class);
-
-    @Inject
-    DataSource dataSource;
 
     @Inject
     TransDao transDao;
@@ -31,45 +30,31 @@ public class ProduceService {
     @ConfigProperty(name = "app.node-id", defaultValue = "162")
     String nodeId;
 
-    public void dispatch(KafkaProducer<String, String> producer, String topicOut, ReadyToSendRecord record) {
-        long transId = record.id();
-        String requestId = record.requestId();
-        String respJson = record.respData();
+    /**
+     * отправляет данные в кафку и фиксирует изменения в бд
+     */
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public void dispatchTransaction(Long transId, KafkaProducer<String, String> producer, String topicOut) {
+        AppChangerTrans trans = transDao.findByIdLocked(transId);
+        if (trans == null || !"READY_TO_SEND".equals(trans.status)) {
+            return;
+        }
 
-        log.info("dispatching response: transId={}, requestId={}, topic={}", transId, requestId, topicOut);
+        log.info("dispatching response: id={}, reqid={}, topic={}", trans.id, trans.requestId, topicOut);
 
         try {
-            // отправляем в Kafka синхронно ждем подтверждения брокера
-            ProducerRecord<String, String> kafkaRecord = new ProducerRecord<>(topicOut, requestId, respJson);
+            ProducerRecord<String, String> kafkaRecord = new ProducerRecord<>(topicOut, trans.requestId, trans.respData);
             producer.send(kafkaRecord).get();
-            log.info("response successfully sent to Kafka. requestId={}", requestId);
+            log.info("response sent to kafka. reqid={}", trans.requestId);
 
-            // атомарно пишем аудит OUT и завершаем транзакцию в БД
-            try (Connection conn = dataSource.getConnection()) {
-                conn.setAutoCommit(false);
-                try {
-                    ioMsgsDao.insertIoMsg(
-                            conn,
-                            transId,
-                            record.protocolType(),
-                            record.systemId(),
-                            "OUT",
-                            respJson,
-                            nodeId
-                    );
+            ioMsgsDao.insertIoMsg(trans.id, trans.protocolType, trans.systemId, "OUT", trans.respData, nodeId);
 
-                    transDao.updateCompleted(conn, transId);
-                    conn.commit();
+            trans.status = "COMPLETED";
+            trans.updTs = ZonedDateTime.now();
 
-                    log.info("transaction id={} finalized with status=COMPLETED", transId);
-
-                } catch (Exception e) {
-                    conn.rollback();
-                    log.error("failed to update status to COMPLETED for transId={}", transId, e);
-                }
-            }
+            log.info("transaction id={} finalized with status=completed", trans.id);
         } catch (Exception e) {
-            log.error("failed to send response to Kafka for requestId={}", requestId, e);
+            log.error("failed to send response to kafka for reqid={}", trans.requestId, e);
         }
     }
 }

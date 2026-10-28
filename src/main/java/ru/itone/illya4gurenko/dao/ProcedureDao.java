@@ -1,6 +1,9 @@
 package ru.itone.illya4gurenko.dao;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dto.ProcedureResult;
@@ -18,6 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * вызов хранимой процедуры в бд
+ */
 @ApplicationScoped
 public class ProcedureDao {
     private static final Logger log = LoggerFactory.getLogger(ProcedureDao.class);
@@ -25,26 +31,44 @@ public class ProcedureDao {
     private static final String CUR_IN_NAME = "cur_in";
     private static final String CUR_OUT_NAME = "cur_out";
 
-    public ProcedureResult executeChangerDataAccount(Connection conn, List<RequestEventDto> events) throws SQLException {
-        // наполняем временную таблицу входными данными
+    @Inject
+    EntityManager em;
+
+    /**
+     * вызывает процедуру changer_data_account в рамках текущей сессии hibernate
+     */
+    public ProcedureResult executeChangerDataAccount(List<RequestEventDto> events) {
+        Session session = em.unwrap(Session.class);
+        return session.doReturningWork(conn -> {
+            try {
+                return executeInternal(conn, events);
+            } catch (SQLException e) {
+                log.error("sql error during procedure call", e);
+                return new ProcedureResult(1, e.getMessage(), Map.of());
+            }
+        });
+    }
+
+    private ProcedureResult executeInternal(Connection conn, List<RequestEventDto> events) throws SQLException {
         setupTempInTable(conn, events);
 
-        // открываем входной курсор по временной таблице
         try (Statement stmt = conn.createStatement()) {
             stmt.execute("DECLARE " + CUR_IN_NAME + " CURSOR FOR SELECT account, operation, amount, currency FROM temp_proc_in;");
         }
 
-        // вызываем процедуру
         String callSql = "CALL \"ACC_APP_CHANGER\".changer_data_account(?, ?, ?, ?);";
         int outCode;
         String outMessage;
 
         try (CallableStatement cs = conn.prepareCall(callSql)) {
-            cs.setString(1, CUR_IN_NAME);   // IN cur_in
-            cs.setString(2, CUR_OUT_NAME);  // INOUT cur_out
-            cs.registerOutParameter(2, Types.OTHER);
-            cs.registerOutParameter(3, Types.INTEGER); // OUT code
-            cs.registerOutParameter(4, Types.VARCHAR); // OUT message
+            cs.setString(1, CUR_IN_NAME);
+            cs.setString(2, CUR_OUT_NAME);
+            cs.setInt(3, 0);
+            cs.setNull(4, Types.VARCHAR);
+
+            cs.registerOutParameter(2, Types.VARCHAR);
+            cs.registerOutParameter(3, Types.INTEGER);
+            cs.registerOutParameter(4, Types.VARCHAR);
 
             cs.execute();
 
@@ -52,27 +76,23 @@ public class ProcedureDao {
             outMessage = cs.getString(4);
         }
 
-        // если процедура завершилась ошибкой на уровне СУБД
         if (outCode != 0) {
-            log.error("Procedure changer_data_account returned error code: {}, message: {}", outCode, outMessage);
+            log.error("procedure returned error code: {}, message: {}", outCode, outMessage);
             return new ProcedureResult(outCode, outMessage, Map.of());
         }
 
-        // вычитываем выходной курсор cur_out
         Map<String, ProcedureResult.CalculatedBalance> balances = new HashMap<>();
         try (Statement fetchStmt = conn.createStatement();
              ResultSet rs = fetchStmt.executeQuery("FETCH ALL FROM \"" + CUR_OUT_NAME + "\";")) {
 
             while (rs.next()) {
-                String account = rs.getString("account");
-                BigDecimal oldTbal = rs.getBigDecimal("oldTbal");
-                BigDecimal newTbal = rs.getBigDecimal("newTbal");
-
-                balances.put(account, new ProcedureResult.CalculatedBalance(oldTbal, newTbal));
+                balances.put(
+                        rs.getString("account"),
+                        new ProcedureResult.CalculatedBalance(rs.getBigDecimal("oldTbal"), rs.getBigDecimal("newTbal"))
+                );
             }
         }
 
-        log.debug("Successfully fetched {} calculated balances from cursor", balances.size());
         return new ProcedureResult(0, null, balances);
     }
 

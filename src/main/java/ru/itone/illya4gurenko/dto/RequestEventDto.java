@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
 
+/**
+ * элемент массива events из входящего запроса
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record RequestEventDto(
-        Long id,
+        String id,
         String systemAccount,
         String currency,
         @JsonAlias({"XALFA", "xalfa"})
