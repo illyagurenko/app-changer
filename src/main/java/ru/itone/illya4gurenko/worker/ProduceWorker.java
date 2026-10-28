@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.itone.illya4gurenko.dao.TransDao;
 import ru.itone.illya4gurenko.entity.AppChangerConfig;
 import ru.itone.illya4gurenko.entity.AppChangerTrans;
 import ru.itone.illya4gurenko.kafka.KafkaProducerFactory;
@@ -19,6 +20,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @ApplicationScoped
 public class ProduceWorker implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(ProduceWorker.class);
+
+    @Inject
+    TransDao transDao;
 
     @Inject
     ProduceService produceService;
@@ -41,7 +45,7 @@ public class ProduceWorker implements Runnable {
 
         while (isRunning.get()) {
             try {
-                List<Long> ids = AppChangerTrans.findIdsByStatus("READY_TO_SEND", 10);
+                List<Long> ids = transDao.findIdsByStatus("READY_TO_SEND", 10);
 
                 if (ids.isEmpty()) {
                     Thread.sleep(1000);

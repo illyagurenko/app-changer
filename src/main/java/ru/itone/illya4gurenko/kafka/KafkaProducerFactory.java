@@ -9,12 +9,18 @@ import ru.itone.illya4gurenko.config.AppConfig;
 
 import java.util.Properties;
 
+/**
+ * фабрика для создания kafka продьюсеров
+ */
 @ApplicationScoped
 public class KafkaProducerFactory {
 
     @Inject
     AppConfig appConfig;
 
+    /**
+     * создает надежный идемпотентный продьюсер
+     */
     public KafkaProducer<String, String> createProducer() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, appConfig.getKafkaBootstrapServers());

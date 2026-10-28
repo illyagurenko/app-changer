@@ -2,6 +2,7 @@ package ru.itone.illya4gurenko.dao;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.LockModeType;
+import jakarta.transaction.Transactional;
 import ru.itone.illya4gurenko.entity.AppChangerTrans;
 
 import java.time.ZonedDateTime;
@@ -13,6 +14,10 @@ import java.util.List;
 @ApplicationScoped
 public class TransDao {
 
+    /**
+     * сохраняет входящую транзакцию
+     */
+    @Transactional
     public AppChangerTrans insertReceived(String protocolType, String systemId, String requestId, String eventType, String reqData) {
         AppChangerTrans trans = new AppChangerTrans();
         trans.protocolType = protocolType;
@@ -28,13 +33,21 @@ public class TransDao {
         return trans;
     }
 
+    /**
+     * выбирает id транзакций в нужном статусе в рамках отдельной транзакции
+     */
+    @Transactional
     public List<Long> findIdsByStatus(String status, int limit) {
-        return AppChangerTrans.find("status", status)
-                .project(Long.class)
-                .page(0, limit)
-                .list();
+        return AppChangerTrans.getEntityManager()
+                .createQuery("SELECT t.id FROM AppChangerTrans t WHERE t.status = :status ORDER BY t.id ASC", Long.class)
+                .setParameter("status", status)
+                .setMaxResults(limit)
+                .getResultList();
     }
 
+    /**
+     * блокирует и возвращает транзакцию по id
+     */
     public AppChangerTrans findByIdLocked(Long id) {
         return AppChangerTrans.findById(id, LockModeType.PESSIMISTIC_WRITE);
     }
