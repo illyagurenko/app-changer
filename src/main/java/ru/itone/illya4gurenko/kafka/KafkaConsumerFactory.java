@@ -10,7 +10,7 @@ import ru.itone.illya4gurenko.config.AppConfig;
 import java.util.Properties;
 
 /**
- * фабрика для создания kafka консьюмеров
+ * фабрика создания kafka консьюмеров
  */
 @ApplicationScoped
 public class KafkaConsumerFactory {
@@ -19,7 +19,7 @@ public class KafkaConsumerFactory {
     AppConfig appConfig;
 
     /**
-     * создает ручной консьюмер с указанным или дефолтным group id
+     * создание консьюмера с кастомной или базовой группой
      */
     public KafkaConsumer<String, String> createConsumer(String customGroupId) {
         Properties props = new Properties();

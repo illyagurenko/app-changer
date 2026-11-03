@@ -1,7 +1,6 @@
 package ru.itone.illya4gurenko.dao;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
 import ru.itone.illya4gurenko.entity.AppChangerTrans;
 
@@ -9,13 +8,13 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * работа с транзакционной таблицей
+ * работа с транзакционной таблицей в базе данных
  */
 @ApplicationScoped
 public class TransDao {
 
     /**
-     * сохраняет входящую транзакцию
+     * сохранение входящей транзакции в статусе received
      */
     @Transactional
     public AppChangerTrans insertReceived(String protocolType, String systemId, String requestId, String eventType, String reqData) {
@@ -34,21 +33,70 @@ public class TransDao {
     }
 
     /**
-     * выбирает id транзакций в нужном статусе в рамках отдельной транзакции
+     * атомарный захват одной записи для обработки со сменой статуса на in_process
      */
     @Transactional
-    public List<Long> findIdsByStatus(String status, int limit) {
-        return AppChangerTrans.getEntityManager()
-                .createQuery("SELECT t.id FROM AppChangerTrans t WHERE t.status = :status ORDER BY t.id ASC", Long.class)
-                .setParameter("status", status)
-                .setMaxResults(limit)
+    public AppChangerTrans acquireNextForProcessing() {
+        String sql = """
+            SELECT "ID" FROM "ACC_APP_CHANGER"."APP_CHANGER_TRANS"
+            WHERE "STATUS" = 'RECEIVED'
+            ORDER BY "ID" ASC
+            LIMIT 1
+            FOR UPDATE SKIP LOCKED
+        """;
+
+        List<?> results = AppChangerTrans.getEntityManager()
+                .createNativeQuery(sql)
                 .getResultList();
+
+        if (results.isEmpty()) {
+            return null;
+        }
+
+        Long id = ((Number) results.getFirst()).longValue();
+        AppChangerTrans trans = AppChangerTrans.findById(id);
+        if (trans != null) {
+            trans.status = "IN_PROCESS";
+            trans.updTs = ZonedDateTime.now();
+        }
+        return trans;
     }
 
     /**
-     * блокирует и возвращает транзакцию по id
+     * атомарный захват одной записи для отправки со сменой статуса на sending
      */
-    public AppChangerTrans findByIdLocked(Long id) {
-        return AppChangerTrans.findById(id, LockModeType.PESSIMISTIC_WRITE);
+    @Transactional
+    public AppChangerTrans acquireNextForSending() {
+        String sql = """
+            SELECT "ID" FROM "ACC_APP_CHANGER"."APP_CHANGER_TRANS"
+            WHERE "STATUS" = 'READY_TO_SEND'
+            ORDER BY "ID" ASC
+            LIMIT 1
+            FOR UPDATE SKIP LOCKED
+        """;
+
+        List<?> results = AppChangerTrans.getEntityManager()
+                .createNativeQuery(sql)
+                .getResultList();
+
+        if (results.isEmpty()) {
+            return null;
+        }
+
+        Long id = ((Number) results.getFirst()).longValue();
+        AppChangerTrans trans = AppChangerTrans.findById(id);
+        if (trans != null) {
+            trans.status = "SENDING";
+            trans.updTs = ZonedDateTime.now();
+        }
+        return trans;
+    }
+
+    /**
+     * поиск транзакции по идентификатору
+     */
+    @Transactional
+    public AppChangerTrans findById(Long id) {
+        return AppChangerTrans.findById(id);
     }
 }

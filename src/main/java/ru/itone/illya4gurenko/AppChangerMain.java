@@ -16,7 +16,7 @@ import ru.itone.illya4gurenko.worker.ProcessingWorker;
 import ru.itone.illya4gurenko.worker.ProduceWorker;
 
 /**
- * главная точка входа приложения
+ * главная точка входа приложения и управление жизненным циклом потоков
  */
 @QuarkusMain
 @ApplicationScoped
@@ -39,6 +39,9 @@ public class AppChangerMain {
         Quarkus.run(args);
     }
 
+    /**
+     * запуск воркеров при старте приложения
+     */
     void onStart(@Observes StartupEvent ev) {
         log.info("starting app-changer on quarkus");
 
@@ -56,14 +59,22 @@ public class AppChangerMain {
             new Thread(consumeWorker, "consume-worker-thread").start();
         }
 
-        new Thread(processingWorker, "processing-worker-thread").start();
 
+        for (int i = 0; i < 1; i++) {
+            new Thread(processingWorker, "processing-worker-" + i).start();
+        }
+        
         if (config.statusOut != null && config.statusOut == 1) {
             produceWorker.init(config);
-            new Thread(produceWorker, "produce-worker-thread").start();
+            for (int i = 0; i < 1; i++) {
+                new Thread(produceWorker, "produce-worker-" + i).start();
+            }
         }
     }
 
+    /**
+     * корректная остановка воркеров при завершении работы приложения
+     */
     void onStop(@Observes ShutdownEvent ev) {
         log.info("stopping app-changer workers");
         consumeWorker.stop();

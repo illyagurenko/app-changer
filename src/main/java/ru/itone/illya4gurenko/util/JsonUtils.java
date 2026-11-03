@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+/**
+ * утилиты для сериализации и десериализации json
+ */
 public final class JsonUtils {
     private static final ObjectMapper MAPPER = new ObjectMapper()
             .registerModule(new JavaTimeModule())
@@ -11,23 +14,32 @@ public final class JsonUtils {
 
     private JsonUtils() {}
 
+    /**
+     * получение настроенного mapper
+     */
     public static ObjectMapper getMapper() {
         return MAPPER;
     }
 
+    /**
+     * чтение json строки в объект
+     */
     public static <T> T fromJson(String json, Class<T> clazz) {
         try {
             return MAPPER.readValue(json, clazz);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to deserialize JSON: " + json, e);
+            throw new RuntimeException("failed to deserialize json: " + json, e);
         }
     }
 
+    /**
+     * запись объекта в json строку
+     */
     public static String toJson(Object obj) {
         try {
             return MAPPER.writeValueAsString(obj);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to serialize object to JSON", e);
+            throw new RuntimeException("failed to serialize object to json", e);
         }
     }
 }

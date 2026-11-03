@@ -10,7 +10,7 @@ import ru.itone.illya4gurenko.config.AppConfig;
 import java.util.Properties;
 
 /**
- * фабрика для создания kafka продьюсеров
+ * фабрика создания kafka продюсеров
  */
 @ApplicationScoped
 public class KafkaProducerFactory {
@@ -19,7 +19,7 @@ public class KafkaProducerFactory {
     AppConfig appConfig;
 
     /**
-     * создает надежный идемпотентный продьюсер
+     * создание надежного продюсера с гарантией доставки
      */
     public KafkaProducer<String, String> createProducer() {
         Properties props = new Properties();
@@ -33,3 +33,4 @@ public class KafkaProducerFactory {
         return new KafkaProducer<>(props);
     }
 }
+

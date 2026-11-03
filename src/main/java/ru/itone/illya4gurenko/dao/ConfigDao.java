@@ -5,13 +5,13 @@ import jakarta.transaction.Transactional;
 import ru.itone.illya4gurenko.entity.AppChangerConfig;
 
 /**
- * работа с таблицей конфигурации
+ * работа с конфигурацией систем в базе данных
  */
 @ApplicationScoped
 public class ConfigDao {
 
     /**
-     * поиск конфигурации по идентификатору системы
+     * поиск конфигурации по коду системы
      */
     @Transactional
     public AppChangerConfig findBySystemId(String systemId) {

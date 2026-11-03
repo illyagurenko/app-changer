@@ -8,14 +8,14 @@ import ru.itone.illya4gurenko.dto.RequestEventDto;
 import java.util.List;
 
 /**
- * клиент для обращения в смежную систему app_controller
+ * клиент обращения в сервис валидации и маршрутизации app_controller
  */
 @ApplicationScoped
 public class AppControllerClient {
     private static final Logger log = LoggerFactory.getLogger(AppControllerClient.class);
 
     /**
-     * эмулирует проверку и маршрутизацию счетов
+     * проверка доступности счетов и подтверждение маршрутизации
      */
     public boolean checkAndRouteAccounts(List<RequestEventDto> events) {
         if (events == null || events.isEmpty()) {

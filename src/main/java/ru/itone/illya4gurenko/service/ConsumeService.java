@@ -8,15 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dao.IoMsgsDao;
 import ru.itone.illya4gurenko.dao.TransDao;
+import ru.itone.illya4gurenko.dto.RequestKafkaDto;
 import ru.itone.illya4gurenko.entity.AppChangerConfig;
 import ru.itone.illya4gurenko.entity.AppChangerTrans;
-import ru.itone.illya4gurenko.dto.RequestKafkaDto;
 import ru.itone.illya4gurenko.util.JsonUtils;
 
 import java.util.UUID;
 
 /**
- * сервис сохранения входящих сообщений в бд
+ * сервис сохранения входящих сообщений кафки в базу данных
  */
 @ApplicationScoped
 public class ConsumeService {
@@ -32,7 +32,7 @@ public class ConsumeService {
     String nodeId;
 
     /**
-     * разбирает сырой json и сохраняет транзакцию и аудит
+     * разбор входящего json и создание транзакции со статусом received
      */
     @Transactional
     public void readAndSaveDb(AppChangerConfig config, String rawJson, String recordKey) {

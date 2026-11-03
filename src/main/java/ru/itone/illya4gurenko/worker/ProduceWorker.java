@@ -5,24 +5,18 @@ import jakarta.inject.Inject;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.itone.illya4gurenko.dao.TransDao;
 import ru.itone.illya4gurenko.entity.AppChangerConfig;
-import ru.itone.illya4gurenko.entity.AppChangerTrans;
 import ru.itone.illya4gurenko.kafka.KafkaProducerFactory;
 import ru.itone.illya4gurenko.service.ProduceService;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * поток отправки обработанных сообщений наружу
+ * фоновый поток последовательной отправки ответов в кафку
  */
 @ApplicationScoped
 public class ProduceWorker implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(ProduceWorker.class);
-
-    @Inject
-    TransDao transDao;
 
     @Inject
     ProduceService produceService;
@@ -34,27 +28,29 @@ public class ProduceWorker implements Runnable {
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
     private KafkaProducer<String, String> producer;
 
-    public void init(AppChangerConfig config) {
+    /**
+     * инициализация воркера конфигурацией и создание продюсера
+     */
+    public synchronized void init(AppChangerConfig config) {
         this.config = config;
+        if (this.producer == null) {
+            this.producer = producerFactory.createProducer();
+        }
     }
 
+    /**
+     * основной цикл отправки записей по одной штуке
+     */
     @Override
     public void run() {
         log.info("starting produce worker thread on topic: {}", config.protocolOut);
-        this.producer = producerFactory.createProducer();
 
         while (isRunning.get()) {
             try {
-                List<Long> ids = transDao.findIdsByStatus("READY_TO_SEND", 10);
+                boolean dispatched = produceService.dispatchNext(producer, config.protocolOut);
 
-                if (ids.isEmpty()) {
-                    Thread.sleep(1000);
-                    continue;
-                }
-
-                for (Long id : ids) {
-                    if (!isRunning.get()) break;
-                    produceService.dispatchTransaction(id, producer, config.protocolOut);
+                if (!dispatched) {
+                    Thread.sleep(20);
                 }
 
             } catch (InterruptedException e) {
@@ -62,14 +58,30 @@ public class ProduceWorker implements Runnable {
                 break;
             } catch (Exception e) {
                 log.error("error in produce worker loop", e);
-                try { Thread.sleep(2000); } catch (InterruptedException ex) { break; }
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
             }
         }
-        if (producer != null) producer.close();
         log.info("produce worker thread terminated");
     }
 
-    public void stop() {
+    /**
+     * остановка потока отправки и закрытие продюсера
+     */
+    public synchronized void stop() {
         isRunning.set(false);
+        if (producer != null) {
+            try {
+                producer.flush();
+                producer.close();
+            } catch (Exception e) {
+                log.error("error closing kafka producer", e);
+            }
+            producer = null;
+        }
     }
 }

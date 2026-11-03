@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dao.ProcedureDao;
 import ru.itone.illya4gurenko.dao.TransDao;
-import ru.itone.illya4gurenko.entity.AppChangerTrans;
 import ru.itone.illya4gurenko.dto.*;
+import ru.itone.illya4gurenko.entity.AppChangerTrans;
 import ru.itone.illya4gurenko.util.JsonUtils;
 
 import java.time.ZonedDateTime;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * сервис обработки транзакций
+ * сервис бизнес-логики обработки транзакций
  */
 @ApplicationScoped
 public class ProcessingService {
@@ -32,21 +32,24 @@ public class ProcessingService {
     AppControllerClient appControllerClient;
 
     /**
-     * обрабатывает одну запись, блокируя её от других воркеров
+     * захват и обработка одной записи в рамках единой транзакции базы данных
      */
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
-    public void processTransaction(Long transId) {
-        AppChangerTrans trans = transDao.findByIdLocked(transId);
-        if (trans == null || !"RECEIVED".equals(trans.status)) {
-            return;
+    @Transactional
+    public boolean processNext() {
+        AppChangerTrans trans = transDao.acquireNextForProcessing();
+        if (trans == null) {
+            return false;
         }
 
-        log.info("processing transaction: id={}, reqid={}", trans.id, trans.requestId);
+        executeBusinessLogic(trans);
+        return true;
+    }
+
+
+    private void executeBusinessLogic(AppChangerTrans trans) {
+        log.debug("processing transaction: id={}, reqid={}", trans.id, trans.requestId);
 
         try {
-            trans.status = "IN_PROCESS";
-            trans.updTs = ZonedDateTime.now();
-
             if (trans.reqData == null || trans.reqData.isBlank()) {
                 markFailed(trans, "empty req_data");
                 return;
@@ -111,7 +114,7 @@ public class ProcessingService {
             trans.status = "READY_TO_SEND";
             trans.updTs = ZonedDateTime.now();
 
-            log.info("transaction id={} successfully processed -> ready_to_send", trans.id);
+            log.debug("transaction id={} successfully processed -> ready_to_send", trans.id);
 
         } catch (Exception e) {
             log.error("error during business processing of id={}", trans.id, e);
@@ -141,5 +144,29 @@ public class ProcessingService {
         trans.status = "PROCESSING_ERROR";
         trans.respDesc = errorMsg;
         trans.updTs = ZonedDateTime.now();
+    }
+
+
+    /**
+     * обработка конкретной транзакции по сущности
+     */
+    @Transactional
+    public void processTransaction(AppChangerTrans trans) {
+        if (trans == null) {
+            return;
+        }
+        executeBusinessLogic(trans);
+    }
+
+    /**
+     * обработка транзакции по идентификатору для тестов
+     */
+    @Transactional
+    public void processTransaction(Long transId) {
+        AppChangerTrans trans = transDao.findById(transId);
+        if (trans == null) {
+            return;
+        }
+        executeBusinessLogic(trans);
     }
 }

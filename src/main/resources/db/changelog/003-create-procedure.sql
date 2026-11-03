@@ -28,9 +28,9 @@ BEGIN
         "account" VARCHAR,
         "oldTbal" NUMERIC(23, 3),
         "newTbal" NUMERIC(23, 3)
-    ) ON COMMIT DROP;
+    ) ON COMMIT PRESERVE ROWS;
 
-    DELETE FROM temp_account_balances;
+    TRUNCATE temp_account_balances;
 
     LOOP
         FETCH cur_in INTO v_account, v_operation, v_amount, v_currency;

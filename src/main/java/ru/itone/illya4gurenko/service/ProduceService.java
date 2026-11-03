@@ -15,7 +15,7 @@ import ru.itone.illya4gurenko.entity.AppChangerTrans;
 import java.time.ZonedDateTime;
 
 /**
- * сервис отправки готовых сообщений
+ * сервис отправки готовых ответов в кафку
  */
 @ApplicationScoped
 public class ProduceService {
@@ -31,28 +31,47 @@ public class ProduceService {
     String nodeId;
 
     /**
-     * отправляет данные в кафку и фиксирует изменения в бд
+     * захват и отправка одного сообщения в рамках единой транзакции базы данных
      */
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
-    public void dispatchTransaction(Long transId, KafkaProducer<String, String> producer, String topicOut) {
-        AppChangerTrans trans = transDao.findByIdLocked(transId);
-        if (trans == null || !"READY_TO_SEND".equals(trans.status)) {
-            return;
+    @Transactional
+    public boolean dispatchNext(KafkaProducer<String, String> producer, String topicOut) {
+        AppChangerTrans trans = transDao.acquireNextForSending();
+        if (trans == null) {
+            return false;
         }
 
-        log.info("dispatching response: id={}, reqid={}, topic={}", trans.id, trans.requestId, topicOut);
+        sendAndFinalize(trans, producer, topicOut);
+        return true;
+    }
+
+    /**
+     * отправка конкретной транзакции
+     */
+    @Transactional
+    public void dispatchTransaction(AppChangerTrans trans, KafkaProducer<String, String> producer, String topicOut) {
+        if (trans == null) {
+            return;
+        }
+        sendAndFinalize(trans, producer, topicOut);
+    }
+
+    private void sendAndFinalize(AppChangerTrans trans, KafkaProducer<String, String> producer, String topicOut) {
+        log.debug("dispatching response: id={}, reqid={}, topic={}", trans.id, trans.requestId, topicOut);
 
         try {
             ProducerRecord<String, String> kafkaRecord = new ProducerRecord<>(topicOut, trans.requestId, trans.respData);
-            producer.send(kafkaRecord).get();
-            log.info("response sent to kafka. reqid={}", trans.requestId);
+            producer.send(kafkaRecord, (metadata, exception) -> {
+                if (exception != null) {
+                    log.error("failed to deliver message to kafka: id={}", trans.id, exception);
+                }
+            });
 
             ioMsgsDao.insertIoMsg(trans.id, trans.protocolType, trans.systemId, "OUT", trans.respData, nodeId);
 
             trans.status = "COMPLETED";
             trans.updTs = ZonedDateTime.now();
 
-            log.info("transaction id={} finalized with status=completed", trans.id);
+            log.debug("transaction id={} finalized with status=completed", trans.id);
         } catch (Exception e) {
             log.error("failed to send response to kafka for reqid={}", trans.requestId, e);
         }

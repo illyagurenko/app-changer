@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name = "APP_CHANGER_CONFIG", schema = "ACC_APP_CHANGER")
 public class AppChangerConfig extends PanacheEntityBase {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -36,13 +37,13 @@ public class AppChangerConfig extends PanacheEntityBase {
     public String protocolIn;
 
     @Column(name = "STATUS_IN")
-    public Integer statusIn;
+    public Short statusIn;
 
     @Column(name = "PROTOCOL_OUT")
     public String protocolOut;
 
     @Column(name = "STATUS_OUT")
-    public Integer statusOut;
+    public Short statusOut;
 
     @Column(name = "INS_TS")
     public ZonedDateTime insTs;

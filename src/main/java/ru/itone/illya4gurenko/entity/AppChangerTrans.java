@@ -15,6 +15,7 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name = "APP_CHANGER_TRANS", schema = "ACC_APP_CHANGER")
 public class AppChangerTrans extends PanacheEntityBase {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -32,10 +33,10 @@ public class AppChangerTrans extends PanacheEntityBase {
     @Column(name = "EVENT_TYPE")
     public String eventType;
 
-    @Column(name = "REQ_DATA")
+    @Column(name = "REQ_DATA", columnDefinition = "TEXT")
     public String reqData;
 
-    @Column(name = "RESP_DATA")
+    @Column(name = "RESP_DATA", columnDefinition = "TEXT")
     public String respData;
 
     @Column(name = "STATUS")

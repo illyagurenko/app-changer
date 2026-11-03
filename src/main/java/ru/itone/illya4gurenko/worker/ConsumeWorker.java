@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * поток чтения данных из кафки
+ * фоновый поток вычитки сообщений из входного топика кафки
  */
 @ApplicationScoped
 public class ConsumeWorker implements Runnable {
@@ -33,10 +33,16 @@ public class ConsumeWorker implements Runnable {
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
     private KafkaConsumer<String, String> consumer;
 
+    /**
+     * инициализация воркера конфигурацией
+     */
     public void init(AppChangerConfig config) {
         this.config = config;
     }
 
+    /**
+     * основной цикл поллинга и коммита оффсета
+     */
     @Override
     public void run() {
         log.info("starting consume worker thread on topic: {}", config.protocolIn);
@@ -65,6 +71,9 @@ public class ConsumeWorker implements Runnable {
         }
     }
 
+    /**
+     * остановка потока вычитки
+     */
     public void stop() {
         isRunning.set(false);
         if (consumer != null) consumer.wakeup();

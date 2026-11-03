@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * вызов хранимой процедуры в бд
+ * вызов хранимой процедуры расчета балансов через курсоры
  */
 @ApplicationScoped
 public class ProcedureDao {
@@ -35,7 +35,7 @@ public class ProcedureDao {
     EntityManager em;
 
     /**
-     * вызывает процедуру changer_data_account в рамках текущей сессии hibernate
+     * выполнение процедуры changer_data_account в текущей сессии бд
      */
     public ProcedureResult executeChangerDataAccount(List<RequestEventDto> events) {
         Session session = em.unwrap(Session.class);
@@ -43,7 +43,7 @@ public class ProcedureDao {
             try {
                 return executeInternal(conn, events);
             } catch (SQLException e) {
-                log.error("sql error during procedure call", e);
+                log.error("sql error during procedure execution", e);
                 return new ProcedureResult(1, e.getMessage(), Map.of());
             }
         });
@@ -104,8 +104,8 @@ public class ProcedureDao {
                     operation VARCHAR,
                     amount NUMERIC(23, 3),
                     currency VARCHAR
-                ) ON COMMIT DROP;
-                DELETE FROM temp_proc_in;
+                ) ON COMMIT PRESERVE ROWS;
+                TRUNCATE temp_proc_in;
             """);
         }
 

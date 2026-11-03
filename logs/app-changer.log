@@ -1,0 +1,956 @@
+2026-11-01 13:34:15,549 INFO  [org.hib.jpa.int.uti.LogHelper] (Test worker) HHH000204: Processing PersistenceUnitInfo [name: <default>]
+2026-11-01 13:34:15,801 INFO  [org.hib.Version] (Test worker) HHH000412: Hibernate ORM core version 7.1.0.Final
+2026-11-01 13:34:16,202 INFO  [org.hib.orm.con.pooling] (Test worker) HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-01 13:53:09,627 INFO  [org.hib.jpa.int.uti.LogHelper] (Test worker) HHH000204: Processing PersistenceUnitInfo [name: <default>]
+2026-11-01 13:53:09,902 INFO  [org.hib.Version] (Test worker) HHH000412: Hibernate ORM core version 7.1.0.Final
+2026-11-01 13:53:10,437 INFO  [org.hib.orm.con.pooling] (Test worker) HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-01 14:07:28,436 INFO  [org.hib.jpa.int.uti.LogHelper] (Test worker) HHH000204: Processing PersistenceUnitInfo [name: <default>]
+2026-11-01 14:07:28,661 INFO  [org.hib.Version] (Test worker) HHH000412: Hibernate ORM core version 7.1.0.Final
+2026-11-01 14:07:29,117 INFO  [org.hib.orm.con.pooling] (Test worker) HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-01 14:21:03,137 INFO  [org.hib.jpa.int.uti.LogHelper] (Test worker) HHH000204: Processing PersistenceUnitInfo [name: <default>]
+2026-11-01 14:21:03,340 INFO  [org.hib.Version] (Test worker) HHH000412: Hibernate ORM core version 7.1.0.Final
+2026-11-01 14:21:03,703 INFO  [org.hib.orm.con.pooling] (Test worker) HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: PostgreSQLDialect
+	Database version: 13.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-01 14:47:38,316 INFO  [liq.database] (Quarkus Main Thread) Set default schema name to public
+2026-11-01 14:47:38,420 INFO  [liq.lockservice] (Quarkus Main Thread) Successfully acquired change log lock
+2026-11-01 14:47:38,714 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 14:47:38,747 INFO  [liq.command] (Quarkus Main Thread) Command execution complete
+2026-11-01 14:47:40,343 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 14:47:40,378 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 14:47:40,390 INFO  [liq.util] (Quarkus Main Thread) UPDATE SUMMARY
+2026-11-01 14:47:40,390 INFO  [liq.util] (Quarkus Main Thread) Run:                          0
+2026-11-01 14:47:40,390 INFO  [liq.util] (Quarkus Main Thread) Previously run:               6
+2026-11-01 14:47:40,390 INFO  [liq.util] (Quarkus Main Thread) Filtered out:                 0
+2026-11-01 14:47:40,390 INFO  [liq.util] (Quarkus Main Thread) -------------------------------
+2026-11-01 14:47:40,390 INFO  [liq.util] (Quarkus Main Thread) Total change sets:            6
+2026-11-01 14:47:40,390 INFO  [liq.util] (Quarkus Main Thread) Update summary generated
+2026-11-01 14:47:40,391 INFO  [liq.command] (Quarkus Main Thread) Command execution complete
+2026-11-01 14:47:40,397 INFO  [liq.lockservice] (Quarkus Main Thread) Successfully released change log lock
+2026-11-01 14:47:41,089 INFO  [ru.ito.ill.AppChangerMain] (Quarkus Main Thread) starting app-changer on quarkus
+2026-11-01 14:47:41,152 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) Failed to validate Schema: Schema-validation: wrong column type encountered in column [STATUS_IN] in table [`ACC_APP_CHANGER`.`APP_CHANGER_CONFIG`]; found [int2 (Types#SMALLINT)], but expecting [integer (Types#INTEGER)]
+2026-11-01 14:47:41,189 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) The following SQL may resolve the database issues, as generated by the Hibernate schema migration tool. WARNING: You must manually verify this SQL is correct, this is a best effort guess, do not copy/paste it without verifying that it does what you expect.
+
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_IN" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_OUT" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "DIR" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "NODE_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "EVENT_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQ_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQUEST_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_CODE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DESC" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "STATUS" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "SYSTEM_ID" set data type varchar(255);
+
+2026-11-01 14:47:41,556 INFO  [ru.ito.ill.AppChangerMain] (Quarkus Main Thread) loaded config: in=gru.balance.request, out=gru.balance.response, status_in=1, status_out=1
+2026-11-01 14:47:41,557 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) starting consume worker thread on topic: gru.balance.request
+2026-11-01 14:47:41,558 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-1) starting processing worker thread
+2026-11-01 14:47:41,558 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-0) starting processing worker thread
+2026-11-01 14:47:41,558 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-3) starting processing worker thread
+2026-11-01 14:47:41,558 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-2) starting processing worker thread
+2026-11-01 14:47:41,804 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-2) starting produce worker thread on topic: gru.balance.response
+2026-11-01 14:47:41,804 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-3) starting produce worker thread on topic: gru.balance.response
+2026-11-01 14:47:41,803 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-1) starting produce worker thread on topic: gru.balance.response
+2026-11-01 14:47:41,803 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-0) starting produce worker thread on topic: gru.balance.response
+2026-11-01 14:47:41,805 INFO  [io.quarkus] (Quarkus Main Thread) app-changer 1.0.0 on JVM (powered by Quarkus 3.26.4) started in 8.876s. 
+2026-11-01 14:47:41,805 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+2026-11-01 14:47:41,805 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [agroal, cdi, hibernate-orm, hibernate-orm-panache, jdbc-postgresql, kafka-client, liquibase, narayana-jta, smallrye-context-propagation, vertx]
+2026-11-01 14:59:42,918 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 14:59:43,259 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400001, reqid=e0750248-c906-44cf-8403-d7f1f9b79d89, status=received
+2026-11-01 14:59:43,305 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400001, reqid=e0750248-c906-44cf-8403-d7f1f9b79d89
+2026-11-01 14:59:43,311 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 14:59:43,517 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400001 successfully processed -> ready_to_send
+2026-11-01 14:59:43,577 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400001, reqid=e0750248-c906-44cf-8403-d7f1f9b79d89, topic=gru.balance.response
+2026-11-01 14:59:43,624 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400001 finalized with status=completed
+2026-11-01 14:59:45,523 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 14:59:45,556 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400002, reqid=e611e1c9-b7d4-454d-9dd5-1f683f8cd059, status=received
+2026-11-01 14:59:45,570 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400002, reqid=e611e1c9-b7d4-454d-9dd5-1f683f8cd059
+2026-11-01 14:59:45,572 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 14:59:45,632 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400002 successfully processed -> ready_to_send
+2026-11-01 14:59:45,664 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400002, reqid=e611e1c9-b7d4-454d-9dd5-1f683f8cd059, topic=gru.balance.response
+2026-11-01 14:59:45,674 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400002 finalized with status=completed
+2026-11-01 14:59:48,234 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 14:59:48,258 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400003, reqid=28c04b96-9be7-42c3-b683-104fbd9fb3e9, status=received
+2026-11-01 14:59:48,284 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400003, reqid=28c04b96-9be7-42c3-b683-104fbd9fb3e9
+2026-11-01 14:59:48,286 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 14:59:48,339 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400003 successfully processed -> ready_to_send
+2026-11-01 14:59:48,359 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400003, reqid=28c04b96-9be7-42c3-b683-104fbd9fb3e9, topic=gru.balance.response
+2026-11-01 14:59:48,364 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400003 finalized with status=completed
+2026-11-01 14:59:51,057 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 14:59:51,068 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400004, reqid=8242db90-fded-4a0c-9c17-c43a674abbda, status=received
+2026-11-01 14:59:51,076 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400004, reqid=8242db90-fded-4a0c-9c17-c43a674abbda
+2026-11-01 14:59:51,077 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 14:59:51,104 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400004 successfully processed -> ready_to_send
+2026-11-01 14:59:51,131 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400004, reqid=8242db90-fded-4a0c-9c17-c43a674abbda, topic=gru.balance.response
+2026-11-01 14:59:51,140 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400004 finalized with status=completed
+2026-11-01 14:59:54,319 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 14:59:54,329 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400005, reqid=26eb0e12-0254-4ff7-97a4-2775cbe648c7, status=received
+2026-11-01 14:59:54,336 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400005, reqid=26eb0e12-0254-4ff7-97a4-2775cbe648c7
+2026-11-01 14:59:54,336 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 14:59:54,351 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400005 successfully processed -> ready_to_send
+2026-11-01 14:59:54,364 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400005, reqid=26eb0e12-0254-4ff7-97a4-2775cbe648c7, topic=gru.balance.response
+2026-11-01 14:59:54,372 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400005 finalized with status=completed
+2026-11-01 14:59:57,015 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 14:59:57,027 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400006, reqid=76f13170-1f7e-42ae-95f3-d87ff74ef12c, status=received
+2026-11-01 14:59:57,040 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400006, reqid=76f13170-1f7e-42ae-95f3-d87ff74ef12c
+2026-11-01 14:59:57,041 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 14:59:57,068 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400006 successfully processed -> ready_to_send
+2026-11-01 14:59:57,089 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400006, reqid=76f13170-1f7e-42ae-95f3-d87ff74ef12c, topic=gru.balance.response
+2026-11-01 14:59:57,099 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400006 finalized with status=completed
+2026-11-01 15:00:00,124 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:00,138 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400007, reqid=13a40bec-a482-46e3-8d29-c1cc96fa6722, status=received
+2026-11-01 15:00:00,149 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400007, reqid=13a40bec-a482-46e3-8d29-c1cc96fa6722
+2026-11-01 15:00:00,150 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:00,185 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400007 successfully processed -> ready_to_send
+2026-11-01 15:00:00,215 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400007, reqid=13a40bec-a482-46e3-8d29-c1cc96fa6722, topic=gru.balance.response
+2026-11-01 15:00:00,223 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400007 finalized with status=completed
+2026-11-01 15:00:03,878 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:03,891 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400008, reqid=63a284c1-9304-4034-be39-5ccd02470b97, status=received
+2026-11-01 15:00:03,906 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400008, reqid=63a284c1-9304-4034-be39-5ccd02470b97
+2026-11-01 15:00:03,907 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:03,926 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400008 successfully processed -> ready_to_send
+2026-11-01 15:00:03,939 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400008, reqid=63a284c1-9304-4034-be39-5ccd02470b97, topic=gru.balance.response
+2026-11-01 15:00:03,949 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400008 finalized with status=completed
+2026-11-01 15:00:06,403 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:06,413 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400009, reqid=d8311f1e-dd5d-4081-9b05-04a859263359, status=received
+2026-11-01 15:00:06,421 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400009, reqid=d8311f1e-dd5d-4081-9b05-04a859263359
+2026-11-01 15:00:06,422 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:06,453 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400009 successfully processed -> ready_to_send
+2026-11-01 15:00:06,469 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400009, reqid=d8311f1e-dd5d-4081-9b05-04a859263359, topic=gru.balance.response
+2026-11-01 15:00:06,474 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400009 finalized with status=completed
+2026-11-01 15:00:09,492 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:09,507 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400010, reqid=a3ac4770-c427-44a0-b65f-702d19ddfbc6, status=received
+2026-11-01 15:00:09,521 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400010, reqid=a3ac4770-c427-44a0-b65f-702d19ddfbc6
+2026-11-01 15:00:09,522 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:09,559 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400010 successfully processed -> ready_to_send
+2026-11-01 15:00:09,591 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400010, reqid=a3ac4770-c427-44a0-b65f-702d19ddfbc6, topic=gru.balance.response
+2026-11-01 15:00:09,603 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400010 finalized with status=completed
+2026-11-01 15:00:11,899 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:11,928 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400011, reqid=b358b86e-dda1-4373-a4e7-7332da597726, status=received
+2026-11-01 15:00:11,947 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400011, reqid=b358b86e-dda1-4373-a4e7-7332da597726
+2026-11-01 15:00:11,948 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:11,987 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400011 successfully processed -> ready_to_send
+2026-11-01 15:00:12,007 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400011, reqid=b358b86e-dda1-4373-a4e7-7332da597726, topic=gru.balance.response
+2026-11-01 15:00:12,016 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400011 finalized with status=completed
+2026-11-01 15:00:15,027 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:15,044 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400012, reqid=81a7abb1-3644-48cf-b4d0-a7b9ceee132d, status=received
+2026-11-01 15:00:15,058 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400012, reqid=81a7abb1-3644-48cf-b4d0-a7b9ceee132d
+2026-11-01 15:00:15,059 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:15,086 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400012 successfully processed -> ready_to_send
+2026-11-01 15:00:15,115 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400012, reqid=81a7abb1-3644-48cf-b4d0-a7b9ceee132d, topic=gru.balance.response
+2026-11-01 15:00:15,127 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400012 finalized with status=completed
+2026-11-01 15:00:17,990 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:18,000 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400013, reqid=0a402454-0330-4d8d-aa0d-64905fd72161, status=received
+2026-11-01 15:00:18,009 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400013, reqid=0a402454-0330-4d8d-aa0d-64905fd72161
+2026-11-01 15:00:18,010 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:18,026 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400013 successfully processed -> ready_to_send
+2026-11-01 15:00:18,048 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400013, reqid=0a402454-0330-4d8d-aa0d-64905fd72161, topic=gru.balance.response
+2026-11-01 15:00:18,054 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400013 finalized with status=completed
+2026-11-01 15:00:20,512 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:20,524 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400014, reqid=e9d0d87b-56b4-419d-84bc-ce8c29a2687a, status=received
+2026-11-01 15:00:20,541 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400014, reqid=e9d0d87b-56b4-419d-84bc-ce8c29a2687a
+2026-11-01 15:00:20,542 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:20,559 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400014 successfully processed -> ready_to_send
+2026-11-01 15:00:20,571 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400014, reqid=e9d0d87b-56b4-419d-84bc-ce8c29a2687a, topic=gru.balance.response
+2026-11-01 15:00:20,575 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400014 finalized with status=completed
+2026-11-01 15:00:23,652 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:23,669 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400015, reqid=003802a9-8b39-4cef-8dfd-fb54cccc3ad8, status=received
+2026-11-01 15:00:23,691 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400015, reqid=003802a9-8b39-4cef-8dfd-fb54cccc3ad8
+2026-11-01 15:00:23,692 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:23,729 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400015 successfully processed -> ready_to_send
+2026-11-01 15:00:23,779 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400015, reqid=003802a9-8b39-4cef-8dfd-fb54cccc3ad8, topic=gru.balance.response
+2026-11-01 15:00:23,787 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400015 finalized with status=completed
+2026-11-01 15:00:26,986 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:26,999 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400016, reqid=f8a9f1ba-bd50-4769-a396-a25cbc524ba2, status=received
+2026-11-01 15:00:27,005 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400016, reqid=f8a9f1ba-bd50-4769-a396-a25cbc524ba2
+2026-11-01 15:00:27,006 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:27,029 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400016 successfully processed -> ready_to_send
+2026-11-01 15:00:27,044 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400016, reqid=f8a9f1ba-bd50-4769-a396-a25cbc524ba2, topic=gru.balance.response
+2026-11-01 15:00:27,051 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400016 finalized with status=completed
+2026-11-01 15:00:29,615 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:29,629 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400017, reqid=436fe867-0915-4e30-b40f-fbd1b311b644, status=received
+2026-11-01 15:00:29,635 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400017, reqid=436fe867-0915-4e30-b40f-fbd1b311b644
+2026-11-01 15:00:29,636 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:29,655 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400017 successfully processed -> ready_to_send
+2026-11-01 15:00:29,686 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400017, reqid=436fe867-0915-4e30-b40f-fbd1b311b644, topic=gru.balance.response
+2026-11-01 15:00:29,692 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400017 finalized with status=completed
+2026-11-01 15:00:32,414 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:32,445 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400018, reqid=c5ce8fda-86e2-47d5-afa0-52438a82f95a, status=received
+2026-11-01 15:00:32,454 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400018, reqid=c5ce8fda-86e2-47d5-afa0-52438a82f95a
+2026-11-01 15:00:32,455 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:32,481 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400018 successfully processed -> ready_to_send
+2026-11-01 15:00:32,503 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400018, reqid=c5ce8fda-86e2-47d5-afa0-52438a82f95a, topic=gru.balance.response
+2026-11-01 15:00:32,513 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400018 finalized with status=completed
+2026-11-01 15:00:35,440 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:35,475 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400019, reqid=4ed83a43-5e28-415b-93b4-bbd21248dd69, status=received
+2026-11-01 15:00:35,496 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400019, reqid=4ed83a43-5e28-415b-93b4-bbd21248dd69
+2026-11-01 15:00:35,497 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:35,538 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400019 successfully processed -> ready_to_send
+2026-11-01 15:00:35,577 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400019, reqid=4ed83a43-5e28-415b-93b4-bbd21248dd69, topic=gru.balance.response
+2026-11-01 15:00:35,584 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400019 finalized with status=completed
+2026-11-01 15:00:39,043 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:39,055 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400020, reqid=0d0c81d1-652b-41a1-824c-b2e5530849e1, status=received
+2026-11-01 15:00:39,060 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400020, reqid=0d0c81d1-652b-41a1-824c-b2e5530849e1
+2026-11-01 15:00:39,061 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:39,113 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400020 successfully processed -> ready_to_send
+2026-11-01 15:00:39,138 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400020, reqid=0d0c81d1-652b-41a1-824c-b2e5530849e1, topic=gru.balance.response
+2026-11-01 15:00:39,145 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400020 finalized with status=completed
+2026-11-01 15:00:41,756 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:41,775 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400021, reqid=fbd5644c-0488-411b-ac42-8cb3b141ac64, status=received
+2026-11-01 15:00:41,786 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400021, reqid=fbd5644c-0488-411b-ac42-8cb3b141ac64
+2026-11-01 15:00:41,787 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:41,807 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400021 successfully processed -> ready_to_send
+2026-11-01 15:00:41,842 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400021, reqid=fbd5644c-0488-411b-ac42-8cb3b141ac64, topic=gru.balance.response
+2026-11-01 15:00:41,851 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400021 finalized with status=completed
+2026-11-01 15:00:44,457 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:44,472 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400022, reqid=0fecf6b9-60ff-4e78-8c75-e30d35ff93c7, status=received
+2026-11-01 15:00:44,483 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400022, reqid=0fecf6b9-60ff-4e78-8c75-e30d35ff93c7
+2026-11-01 15:00:44,484 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:44,507 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400022 successfully processed -> ready_to_send
+2026-11-01 15:00:44,528 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400022, reqid=0fecf6b9-60ff-4e78-8c75-e30d35ff93c7, topic=gru.balance.response
+2026-11-01 15:00:44,535 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400022 finalized with status=completed
+2026-11-01 15:00:48,017 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:48,031 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400023, reqid=fd51478d-a997-49b8-ba2d-32abf6f74727, status=received
+2026-11-01 15:00:48,045 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400023, reqid=fd51478d-a997-49b8-ba2d-32abf6f74727
+2026-11-01 15:00:48,047 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:48,072 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400023 successfully processed -> ready_to_send
+2026-11-01 15:00:48,097 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400023, reqid=fd51478d-a997-49b8-ba2d-32abf6f74727, topic=gru.balance.response
+2026-11-01 15:00:48,101 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400023 finalized with status=completed
+2026-11-01 15:00:50,463 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:50,482 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400024, reqid=4f0286f4-8488-4def-a8a6-4602133dbba9, status=received
+2026-11-01 15:00:50,497 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400024, reqid=4f0286f4-8488-4def-a8a6-4602133dbba9
+2026-11-01 15:00:50,498 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:50,519 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400024 successfully processed -> ready_to_send
+2026-11-01 15:00:50,535 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400024, reqid=4f0286f4-8488-4def-a8a6-4602133dbba9, topic=gru.balance.response
+2026-11-01 15:00:50,542 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400024 finalized with status=completed
+2026-11-01 15:00:53,016 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:53,030 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400025, reqid=50a8de42-e260-4080-8050-d3b67419e15f, status=received
+2026-11-01 15:00:53,055 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400025, reqid=50a8de42-e260-4080-8050-d3b67419e15f
+2026-11-01 15:00:53,056 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:53,077 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400025 successfully processed -> ready_to_send
+2026-11-01 15:00:53,092 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400025, reqid=50a8de42-e260-4080-8050-d3b67419e15f, topic=gru.balance.response
+2026-11-01 15:00:53,097 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400025 finalized with status=completed
+2026-11-01 15:00:55,894 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:55,921 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400026, reqid=4f37c387-ecf1-45bb-b1a7-a83b2df4765e, status=received
+2026-11-01 15:00:55,926 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400026, reqid=4f37c387-ecf1-45bb-b1a7-a83b2df4765e
+2026-11-01 15:00:55,927 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:55,948 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400026 successfully processed -> ready_to_send
+2026-11-01 15:00:55,972 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400026, reqid=4f37c387-ecf1-45bb-b1a7-a83b2df4765e, topic=gru.balance.response
+2026-11-01 15:00:55,979 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400026 finalized with status=completed
+2026-11-01 15:00:58,825 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:00:58,845 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400027, reqid=8b9d5dad-bdd0-40ef-b633-1c3c87da00e3, status=received
+2026-11-01 15:00:58,859 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400027, reqid=8b9d5dad-bdd0-40ef-b633-1c3c87da00e3
+2026-11-01 15:00:58,860 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:00:58,887 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400027 successfully processed -> ready_to_send
+2026-11-01 15:00:58,926 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400027, reqid=8b9d5dad-bdd0-40ef-b633-1c3c87da00e3, topic=gru.balance.response
+2026-11-01 15:00:58,934 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400027 finalized with status=completed
+2026-11-01 15:01:01,699 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:01,716 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400028, reqid=553aaaa5-27ab-4105-8f72-14b10dd62032, status=received
+2026-11-01 15:01:01,735 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400028, reqid=553aaaa5-27ab-4105-8f72-14b10dd62032
+2026-11-01 15:01:01,736 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:01,754 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400028 successfully processed -> ready_to_send
+2026-11-01 15:01:01,789 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400028, reqid=553aaaa5-27ab-4105-8f72-14b10dd62032, topic=gru.balance.response
+2026-11-01 15:01:01,797 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400028 finalized with status=completed
+2026-11-01 15:01:04,334 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:04,350 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400029, reqid=7d88308e-3125-4a2a-b30b-23882771c60b, status=received
+2026-11-01 15:01:04,356 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400029, reqid=7d88308e-3125-4a2a-b30b-23882771c60b
+2026-11-01 15:01:04,356 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:04,380 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400029 successfully processed -> ready_to_send
+2026-11-01 15:01:04,401 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400029, reqid=7d88308e-3125-4a2a-b30b-23882771c60b, topic=gru.balance.response
+2026-11-01 15:01:04,408 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400029 finalized with status=completed
+2026-11-01 15:01:06,754 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:06,766 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400030, reqid=2e1ab0da-d036-4610-80aa-53e9c0e12d07, status=received
+2026-11-01 15:01:06,773 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400030, reqid=2e1ab0da-d036-4610-80aa-53e9c0e12d07
+2026-11-01 15:01:06,775 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:06,793 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400030 successfully processed -> ready_to_send
+2026-11-01 15:01:06,829 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400030, reqid=2e1ab0da-d036-4610-80aa-53e9c0e12d07, topic=gru.balance.response
+2026-11-01 15:01:06,835 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400030 finalized with status=completed
+2026-11-01 15:01:09,311 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:09,324 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400031, reqid=d625c35a-1d30-40b7-b7f2-c44ec3b020ff, status=received
+2026-11-01 15:01:09,334 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400031, reqid=d625c35a-1d30-40b7-b7f2-c44ec3b020ff
+2026-11-01 15:01:09,334 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:09,354 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400031 successfully processed -> ready_to_send
+2026-11-01 15:01:09,373 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400031, reqid=d625c35a-1d30-40b7-b7f2-c44ec3b020ff, topic=gru.balance.response
+2026-11-01 15:01:09,380 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400031 finalized with status=completed
+2026-11-01 15:01:12,108 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:12,123 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400032, reqid=f8179b09-b9e7-4cc0-b9a7-9ea90fcc702a, status=received
+2026-11-01 15:01:12,134 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400032, reqid=f8179b09-b9e7-4cc0-b9a7-9ea90fcc702a
+2026-11-01 15:01:12,136 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:12,156 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400032 successfully processed -> ready_to_send
+2026-11-01 15:01:12,183 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400032, reqid=f8179b09-b9e7-4cc0-b9a7-9ea90fcc702a, topic=gru.balance.response
+2026-11-01 15:01:12,192 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400032 finalized with status=completed
+2026-11-01 15:01:14,692 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:14,705 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400033, reqid=957e97e5-6097-473a-a484-988a80d67c6d, status=received
+2026-11-01 15:01:14,713 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400033, reqid=957e97e5-6097-473a-a484-988a80d67c6d
+2026-11-01 15:01:14,714 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:14,730 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400033 successfully processed -> ready_to_send
+2026-11-01 15:01:14,755 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400033, reqid=957e97e5-6097-473a-a484-988a80d67c6d, topic=gru.balance.response
+2026-11-01 15:01:14,759 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400033 finalized with status=completed
+2026-11-01 15:01:17,333 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:17,348 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400034, reqid=397daf0a-a795-4370-8728-06f6c9afea6d, status=received
+2026-11-01 15:01:17,372 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400034, reqid=397daf0a-a795-4370-8728-06f6c9afea6d
+2026-11-01 15:01:17,372 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:17,388 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400034 successfully processed -> ready_to_send
+2026-11-01 15:01:17,415 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400034, reqid=397daf0a-a795-4370-8728-06f6c9afea6d, topic=gru.balance.response
+2026-11-01 15:01:17,423 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400034 finalized with status=completed
+2026-11-01 15:01:21,125 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:21,138 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400035, reqid=99cab191-939a-42c4-908e-8b936d34b191, status=received
+2026-11-01 15:01:21,146 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400035, reqid=99cab191-939a-42c4-908e-8b936d34b191
+2026-11-01 15:01:21,146 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:21,161 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400035 successfully processed -> ready_to_send
+2026-11-01 15:01:21,181 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400035, reqid=99cab191-939a-42c4-908e-8b936d34b191, topic=gru.balance.response
+2026-11-01 15:01:21,188 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400035 finalized with status=completed
+2026-11-01 15:01:23,694 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:23,707 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400036, reqid=28031b06-7a92-45d0-a886-70fa09d24d47, status=received
+2026-11-01 15:01:23,731 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400036, reqid=28031b06-7a92-45d0-a886-70fa09d24d47
+2026-11-01 15:01:23,731 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:23,759 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400036 successfully processed -> ready_to_send
+2026-11-01 15:01:23,777 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400036, reqid=28031b06-7a92-45d0-a886-70fa09d24d47, topic=gru.balance.response
+2026-11-01 15:01:23,781 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400036 finalized with status=completed
+2026-11-01 15:01:26,040 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:26,049 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400037, reqid=94a75cfc-2be4-42da-9a20-0ffa9aead117, status=received
+2026-11-01 15:01:26,055 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400037, reqid=94a75cfc-2be4-42da-9a20-0ffa9aead117
+2026-11-01 15:01:26,055 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:26,068 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400037 successfully processed -> ready_to_send
+2026-11-01 15:01:26,080 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400037, reqid=94a75cfc-2be4-42da-9a20-0ffa9aead117, topic=gru.balance.response
+2026-11-01 15:01:26,087 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400037 finalized with status=completed
+2026-11-01 15:01:28,614 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:28,626 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400038, reqid=e684fb97-2ca5-40c9-bf70-363a36f2d16f, status=received
+2026-11-01 15:01:28,651 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400038, reqid=e684fb97-2ca5-40c9-bf70-363a36f2d16f
+2026-11-01 15:01:28,652 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:28,667 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400038 successfully processed -> ready_to_send
+2026-11-01 15:01:28,703 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400038, reqid=e684fb97-2ca5-40c9-bf70-363a36f2d16f, topic=gru.balance.response
+2026-11-01 15:01:28,710 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400038 finalized with status=completed
+2026-11-01 15:01:31,499 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:31,511 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400039, reqid=eb167509-7034-4c8b-97c4-23ec2cfefd21, status=received
+2026-11-01 15:01:31,536 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400039, reqid=eb167509-7034-4c8b-97c4-23ec2cfefd21
+2026-11-01 15:01:31,536 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:31,553 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400039 successfully processed -> ready_to_send
+2026-11-01 15:01:31,586 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400039, reqid=eb167509-7034-4c8b-97c4-23ec2cfefd21, topic=gru.balance.response
+2026-11-01 15:01:31,590 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400039 finalized with status=completed
+2026-11-01 15:01:34,135 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:34,143 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400040, reqid=2fab4a70-e8e2-40e4-8086-d0fbb96dd8fd, status=received
+2026-11-01 15:01:34,154 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400040, reqid=2fab4a70-e8e2-40e4-8086-d0fbb96dd8fd
+2026-11-01 15:01:34,154 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:34,167 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400040 successfully processed -> ready_to_send
+2026-11-01 15:01:34,177 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400040, reqid=2fab4a70-e8e2-40e4-8086-d0fbb96dd8fd, topic=gru.balance.response
+2026-11-01 15:01:34,184 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400040 finalized with status=completed
+2026-11-01 15:01:36,772 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:36,783 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400041, reqid=94f973ed-c532-475d-a113-062e44e1c70b, status=received
+2026-11-01 15:01:36,809 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400041, reqid=94f973ed-c532-475d-a113-062e44e1c70b
+2026-11-01 15:01:36,810 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:36,826 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400041 successfully processed -> ready_to_send
+2026-11-01 15:01:36,857 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400041, reqid=94f973ed-c532-475d-a113-062e44e1c70b, topic=gru.balance.response
+2026-11-01 15:01:36,864 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400041 finalized with status=completed
+2026-11-01 15:01:39,030 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:39,040 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400042, reqid=8eade97d-0c13-44eb-8f3a-c8dc2cb2776b, status=received
+2026-11-01 15:01:39,049 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400042, reqid=8eade97d-0c13-44eb-8f3a-c8dc2cb2776b
+2026-11-01 15:01:39,049 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:39,063 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400042 successfully processed -> ready_to_send
+2026-11-01 15:01:39,087 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400042, reqid=8eade97d-0c13-44eb-8f3a-c8dc2cb2776b, topic=gru.balance.response
+2026-11-01 15:01:39,093 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400042 finalized with status=completed
+2026-11-01 15:01:41,804 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:41,820 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400043, reqid=d7b1943c-339b-40ac-9fb6-8d2b590c5afe, status=received
+2026-11-01 15:01:41,844 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400043, reqid=d7b1943c-339b-40ac-9fb6-8d2b590c5afe
+2026-11-01 15:01:41,844 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:41,856 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400043 successfully processed -> ready_to_send
+2026-11-01 15:01:41,872 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400043, reqid=d7b1943c-339b-40ac-9fb6-8d2b590c5afe, topic=gru.balance.response
+2026-11-01 15:01:41,878 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400043 finalized with status=completed
+2026-11-01 15:01:44,076 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:44,085 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400044, reqid=2880df92-5ba2-4db2-8dff-e5d7d5724478, status=received
+2026-11-01 15:01:44,099 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400044, reqid=2880df92-5ba2-4db2-8dff-e5d7d5724478
+2026-11-01 15:01:44,099 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:44,113 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400044 successfully processed -> ready_to_send
+2026-11-01 15:01:44,125 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400044, reqid=2880df92-5ba2-4db2-8dff-e5d7d5724478, topic=gru.balance.response
+2026-11-01 15:01:44,129 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400044 finalized with status=completed
+2026-11-01 15:01:46,725 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:46,744 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400045, reqid=02959bdc-74a8-40ee-863e-efa9ffecfd7b, status=received
+2026-11-01 15:01:46,754 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400045, reqid=02959bdc-74a8-40ee-863e-efa9ffecfd7b
+2026-11-01 15:01:46,755 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:46,767 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400045 successfully processed -> ready_to_send
+2026-11-01 15:01:46,779 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400045, reqid=02959bdc-74a8-40ee-863e-efa9ffecfd7b, topic=gru.balance.response
+2026-11-01 15:01:46,782 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400045 finalized with status=completed
+2026-11-01 15:01:49,283 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:49,296 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400046, reqid=72c7b6f9-0c04-49f5-b394-4f05c8a4f2c7, status=received
+2026-11-01 15:01:49,320 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400046, reqid=72c7b6f9-0c04-49f5-b394-4f05c8a4f2c7
+2026-11-01 15:01:49,320 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:49,332 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400046 successfully processed -> ready_to_send
+2026-11-01 15:01:49,344 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400046, reqid=72c7b6f9-0c04-49f5-b394-4f05c8a4f2c7, topic=gru.balance.response
+2026-11-01 15:01:49,348 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400046 finalized with status=completed
+2026-11-01 15:01:51,981 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:51,992 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400047, reqid=090dc795-8dc4-466a-b81c-a7bbbfc4e807, status=received
+2026-11-01 15:01:52,014 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400047, reqid=090dc795-8dc4-466a-b81c-a7bbbfc4e807
+2026-11-01 15:01:52,015 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:52,027 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400047 successfully processed -> ready_to_send
+2026-11-01 15:01:52,065 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400047, reqid=090dc795-8dc4-466a-b81c-a7bbbfc4e807, topic=gru.balance.response
+2026-11-01 15:01:52,071 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400047 finalized with status=completed
+2026-11-01 15:01:54,927 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:54,936 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400048, reqid=93d9985c-b6a6-433e-ab50-a2c34eef355c, status=received
+2026-11-01 15:01:54,949 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400048, reqid=93d9985c-b6a6-433e-ab50-a2c34eef355c
+2026-11-01 15:01:54,949 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:54,964 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400048 successfully processed -> ready_to_send
+2026-11-01 15:01:54,981 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400048, reqid=93d9985c-b6a6-433e-ab50-a2c34eef355c, topic=gru.balance.response
+2026-11-01 15:01:54,986 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400048 finalized with status=completed
+2026-11-01 15:01:57,648 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:01:57,659 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400049, reqid=11302280-7529-4bdb-94e3-7582811b4037, status=received
+2026-11-01 15:01:57,680 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400049, reqid=11302280-7529-4bdb-94e3-7582811b4037
+2026-11-01 15:01:57,680 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:01:57,695 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400049 successfully processed -> ready_to_send
+2026-11-01 15:01:57,705 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400049, reqid=11302280-7529-4bdb-94e3-7582811b4037, topic=gru.balance.response
+2026-11-01 15:01:57,709 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400049 finalized with status=completed
+2026-11-01 15:02:00,085 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:02:00,098 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400050, reqid=6cb909b5-f826-41be-a9bb-c87678703c10, status=received
+2026-11-01 15:02:00,106 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400050, reqid=6cb909b5-f826-41be-a9bb-c87678703c10
+2026-11-01 15:02:00,107 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:02:00,124 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400050 successfully processed -> ready_to_send
+2026-11-01 15:02:00,146 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400050, reqid=6cb909b5-f826-41be-a9bb-c87678703c10, topic=gru.balance.response
+2026-11-01 15:02:00,152 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400050 finalized with status=completed
+2026-11-01 15:34:31,744 INFO  [liq.database] (Quarkus Main Thread) Set default schema name to public
+2026-11-01 15:34:31,844 INFO  [liq.lockservice] (Quarkus Main Thread) Successfully acquired change log lock
+2026-11-01 15:34:32,130 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 15:34:32,167 INFO  [liq.command] (Quarkus Main Thread) Command execution complete
+2026-11-01 15:34:33,620 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 15:34:33,678 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 15:34:33,695 INFO  [liq.util] (Quarkus Main Thread) UPDATE SUMMARY
+2026-11-01 15:34:33,695 INFO  [liq.util] (Quarkus Main Thread) Run:                          0
+2026-11-01 15:34:33,695 INFO  [liq.util] (Quarkus Main Thread) Previously run:               6
+2026-11-01 15:34:33,696 INFO  [liq.util] (Quarkus Main Thread) Filtered out:                 0
+2026-11-01 15:34:33,696 INFO  [liq.util] (Quarkus Main Thread) -------------------------------
+2026-11-01 15:34:33,696 INFO  [liq.util] (Quarkus Main Thread) Total change sets:            6
+2026-11-01 15:34:33,697 INFO  [liq.util] (Quarkus Main Thread) Update summary generated
+2026-11-01 15:34:33,697 INFO  [liq.command] (Quarkus Main Thread) Command execution complete
+2026-11-01 15:34:33,710 INFO  [liq.lockservice] (Quarkus Main Thread) Successfully released change log lock
+2026-11-01 15:34:34,806 INFO  [ru.ito.ill.AppChangerMain] (Quarkus Main Thread) starting app-changer on quarkus
+2026-11-01 15:34:34,868 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) Failed to validate Schema: Schema-validation: wrong column type encountered in column [STATUS_IN] in table [`ACC_APP_CHANGER`.`APP_CHANGER_CONFIG`]; found [int2 (Types#SMALLINT)], but expecting [integer (Types#INTEGER)]
+2026-11-01 15:34:34,945 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) The following SQL may resolve the database issues, as generated by the Hibernate schema migration tool. WARNING: You must manually verify this SQL is correct, this is a best effort guess, do not copy/paste it without verifying that it does what you expect.
+
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_IN" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_OUT" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "DIR" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "NODE_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "EVENT_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQ_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQUEST_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_CODE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DESC" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "STATUS" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "SYSTEM_ID" set data type varchar(255);
+
+2026-11-01 15:34:35,705 INFO  [ru.ito.ill.AppChangerMain] (Quarkus Main Thread) loaded config: in=gru.balance.request, out=gru.balance.response, status_in=1, status_out=1
+2026-11-01 15:34:35,706 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) starting consume worker thread on topic: gru.balance.request
+2026-11-01 15:34:35,707 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-2) starting processing worker thread
+2026-11-01 15:34:35,707 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-0) starting processing worker thread
+2026-11-01 15:34:35,707 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-3) starting processing worker thread
+2026-11-01 15:34:35,707 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-1) starting processing worker thread
+2026-11-01 15:34:36,107 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-1) starting produce worker thread on topic: gru.balance.response
+2026-11-01 15:34:36,107 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-0) starting produce worker thread on topic: gru.balance.response
+2026-11-01 15:34:36,107 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-2) starting produce worker thread on topic: gru.balance.response
+2026-11-01 15:34:36,108 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-3) starting produce worker thread on topic: gru.balance.response
+2026-11-01 15:34:36,108 INFO  [io.quarkus] (Quarkus Main Thread) app-changer 1.0.0 on JVM (powered by Quarkus 3.26.4) started in 11.594s. 
+2026-11-01 15:34:36,110 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+2026-11-01 15:34:36,110 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [agroal, cdi, hibernate-orm, hibernate-orm-panache, jdbc-postgresql, kafka-client, liquibase, narayana-jta, smallrye-context-propagation, vertx]
+2026-11-01 15:35:23,944 INFO  [liq.database] (Quarkus Main Thread) Set default schema name to public
+2026-11-01 15:35:24,031 INFO  [liq.lockservice] (Quarkus Main Thread) Successfully acquired change log lock
+2026-11-01 15:35:24,265 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 15:35:24,305 INFO  [liq.command] (Quarkus Main Thread) Command execution complete
+2026-11-01 15:35:25,796 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 15:35:25,832 INFO  [liq.changelog] (Quarkus Main Thread) Reading from public.databasechangelog
+2026-11-01 15:35:25,845 INFO  [liq.util] (Quarkus Main Thread) UPDATE SUMMARY
+2026-11-01 15:35:25,845 INFO  [liq.util] (Quarkus Main Thread) Run:                          0
+2026-11-01 15:35:25,845 INFO  [liq.util] (Quarkus Main Thread) Previously run:               6
+2026-11-01 15:35:25,845 INFO  [liq.util] (Quarkus Main Thread) Filtered out:                 0
+2026-11-01 15:35:25,845 INFO  [liq.util] (Quarkus Main Thread) -------------------------------
+2026-11-01 15:35:25,845 INFO  [liq.util] (Quarkus Main Thread) Total change sets:            6
+2026-11-01 15:35:25,846 INFO  [liq.util] (Quarkus Main Thread) Update summary generated
+2026-11-01 15:35:25,846 INFO  [liq.command] (Quarkus Main Thread) Command execution complete
+2026-11-01 15:35:25,857 INFO  [liq.lockservice] (Quarkus Main Thread) Successfully released change log lock
+2026-11-01 15:35:26,592 INFO  [ru.ito.ill.AppChangerMain] (Quarkus Main Thread) starting app-changer on quarkus
+2026-11-01 15:35:26,623 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) Failed to validate Schema: Schema-validation: wrong column type encountered in column [STATUS_IN] in table [`ACC_APP_CHANGER`.`APP_CHANGER_CONFIG`]; found [int2 (Types#SMALLINT)], but expecting [integer (Types#INTEGER)]
+2026-11-01 15:35:26,662 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) The following SQL may resolve the database issues, as generated by the Hibernate schema migration tool. WARNING: You must manually verify this SQL is correct, this is a best effort guess, do not copy/paste it without verifying that it does what you expect.
+
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_IN" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_OUT" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "DIR" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "NODE_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "EVENT_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQ_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQUEST_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_CODE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DESC" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "STATUS" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "SYSTEM_ID" set data type varchar(255);
+
+2026-11-01 15:35:27,079 INFO  [ru.ito.ill.AppChangerMain] (Quarkus Main Thread) loaded config: in=gru.balance.request, out=gru.balance.response, status_in=1, status_out=1
+2026-11-01 15:35:27,081 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) starting consume worker thread on topic: gru.balance.request
+2026-11-01 15:35:27,081 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-0) starting processing worker thread
+2026-11-01 15:35:27,081 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-2) starting processing worker thread
+2026-11-01 15:35:27,081 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-1) starting processing worker thread
+2026-11-01 15:35:27,081 INFO  [ru.ito.ill.wor.ProcessingWorker] (processing-worker-3) starting processing worker thread
+2026-11-01 15:35:27,310 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-3) starting produce worker thread on topic: gru.balance.response
+2026-11-01 15:35:27,310 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-2) starting produce worker thread on topic: gru.balance.response
+2026-11-01 15:35:27,310 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-1) starting produce worker thread on topic: gru.balance.response
+2026-11-01 15:35:27,310 INFO  [ru.ito.ill.wor.ProduceWorker] (produce-worker-0) starting produce worker thread on topic: gru.balance.response
+2026-11-01 15:35:27,311 INFO  [io.quarkus] (Quarkus Main Thread) app-changer 1.0.0 on JVM (powered by Quarkus 3.26.4) started in 8.118s. 
+2026-11-01 15:35:27,316 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+2026-11-01 15:35:27,317 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [agroal, cdi, hibernate-orm, hibernate-orm-panache, jdbc-postgresql, kafka-client, liquibase, narayana-jta, smallrye-context-propagation, vertx]
+2026-11-01 15:35:55,032 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 9 records from topic
+2026-11-01 15:35:55,146 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400051, reqid=5726891b-481c-4acb-855f-88ec144689ea, status=received
+2026-11-01 15:35:55,158 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400052, reqid=ecc09a1a-d750-416c-9d49-b712a5614680, status=received
+2026-11-01 15:35:55,162 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400051, reqid=5726891b-481c-4acb-855f-88ec144689ea
+2026-11-01 15:35:55,164 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,171 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400053, reqid=4791aa6b-50f4-45a9-b20d-2e1cb50bd0bb, status=received
+2026-11-01 15:35:55,182 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400052, reqid=ecc09a1a-d750-416c-9d49-b712a5614680
+2026-11-01 15:35:55,182 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400053, reqid=4791aa6b-50f4-45a9-b20d-2e1cb50bd0bb
+2026-11-01 15:35:55,182 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400054, reqid=41f3d242-adda-4fdf-a578-b80f40c87d65, status=received
+2026-11-01 15:35:55,182 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,182 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,193 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400055, reqid=f073bc0f-b275-46e0-ba7a-01573dd3f6e4, status=received
+2026-11-01 15:35:55,207 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400054, reqid=41f3d242-adda-4fdf-a578-b80f40c87d65
+2026-11-01 15:35:55,207 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,208 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400056, reqid=76d19796-63de-4924-a6f8-94d62166dd8b, status=received
+2026-11-01 15:35:55,224 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400057, reqid=9138b98f-af35-4fdf-9403-476f678635ff, status=received
+2026-11-01 15:35:55,236 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400058, reqid=650aed8d-ed70-46bc-8b3b-df7b0ea15ac8, status=received
+2026-11-01 15:35:55,248 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400059, reqid=6e96dbc9-8df4-453a-a6cf-87e50aa6fc40, status=received
+2026-11-01 15:35:55,263 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400051 successfully processed -> ready_to_send
+2026-11-01 15:35:55,263 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400053 successfully processed -> ready_to_send
+2026-11-01 15:35:55,264 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400054 successfully processed -> ready_to_send
+2026-11-01 15:35:55,263 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400052 successfully processed -> ready_to_send
+2026-11-01 15:35:55,290 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400052, reqid=ecc09a1a-d750-416c-9d49-b712a5614680, topic=gru.balance.response
+2026-11-01 15:35:55,295 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400055, reqid=f073bc0f-b275-46e0-ba7a-01573dd3f6e4
+2026-11-01 15:35:55,295 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,296 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400056, reqid=76d19796-63de-4924-a6f8-94d62166dd8b
+2026-11-01 15:35:55,297 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400057, reqid=9138b98f-af35-4fdf-9403-476f678635ff
+2026-11-01 15:35:55,298 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,298 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,298 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400058, reqid=650aed8d-ed70-46bc-8b3b-df7b0ea15ac8
+2026-11-01 15:35:55,299 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,305 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400053, reqid=4791aa6b-50f4-45a9-b20d-2e1cb50bd0bb, topic=gru.balance.response
+2026-11-01 15:35:55,306 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400054, reqid=41f3d242-adda-4fdf-a578-b80f40c87d65, topic=gru.balance.response
+2026-11-01 15:35:55,306 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400051, reqid=5726891b-481c-4acb-855f-88ec144689ea, topic=gru.balance.response
+2026-11-01 15:35:55,319 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400055 successfully processed -> ready_to_send
+2026-11-01 15:35:55,319 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400056 successfully processed -> ready_to_send
+2026-11-01 15:35:55,321 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400058 successfully processed -> ready_to_send
+2026-11-01 15:35:55,324 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400052 finalized with status=completed
+2026-11-01 15:35:55,325 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400057 successfully processed -> ready_to_send
+2026-11-01 15:35:55,345 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400055, reqid=f073bc0f-b275-46e0-ba7a-01573dd3f6e4, topic=gru.balance.response
+2026-11-01 15:35:55,354 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400059, reqid=6e96dbc9-8df4-453a-a6cf-87e50aa6fc40
+2026-11-01 15:35:55,355 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,357 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400055 finalized with status=completed
+2026-11-01 15:35:55,372 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400056, reqid=76d19796-63de-4924-a6f8-94d62166dd8b, topic=gru.balance.response
+2026-11-01 15:35:55,380 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400056 finalized with status=completed
+2026-11-01 15:35:55,380 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400059 successfully processed -> ready_to_send
+2026-11-01 15:35:55,395 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400057, reqid=9138b98f-af35-4fdf-9403-476f678635ff, topic=gru.balance.response
+2026-11-01 15:35:55,400 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400057 finalized with status=completed
+2026-11-01 15:35:55,414 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400058, reqid=650aed8d-ed70-46bc-8b3b-df7b0ea15ac8, topic=gru.balance.response
+2026-11-01 15:35:55,416 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400051 finalized with status=completed
+2026-11-01 15:35:55,416 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400054 finalized with status=completed
+2026-11-01 15:35:55,417 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400053 finalized with status=completed
+2026-11-01 15:35:55,422 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400058 finalized with status=completed
+2026-11-01 15:35:55,429 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400059, reqid=6e96dbc9-8df4-453a-a6cf-87e50aa6fc40, topic=gru.balance.response
+2026-11-01 15:35:55,437 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400059 finalized with status=completed
+2026-11-01 15:35:55,784 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:35:55,799 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400060, reqid=4249129f-114e-42d8-ac4e-ee34b3d841b9, status=received
+2026-11-01 15:35:55,805 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400060, reqid=4249129f-114e-42d8-ac4e-ee34b3d841b9
+2026-11-01 15:35:55,806 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:55,822 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400060 successfully processed -> ready_to_send
+2026-11-01 15:35:55,840 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400060, reqid=4249129f-114e-42d8-ac4e-ee34b3d841b9, topic=gru.balance.response
+2026-11-01 15:35:55,844 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400060 finalized with status=completed
+2026-11-01 15:35:58,258 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:35:58,268 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400061, reqid=ad3e718e-b4ee-42ad-acb6-747fff920a0d, status=received
+2026-11-01 15:35:58,276 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400061, reqid=ad3e718e-b4ee-42ad-acb6-747fff920a0d
+2026-11-01 15:35:58,277 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:35:58,291 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400061 successfully processed -> ready_to_send
+2026-11-01 15:35:58,301 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400061, reqid=ad3e718e-b4ee-42ad-acb6-747fff920a0d, topic=gru.balance.response
+2026-11-01 15:35:58,308 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400061 finalized with status=completed
+2026-11-01 15:36:00,893 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:00,909 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400062, reqid=9ab302c2-557c-4651-9e95-310f9b23c6e2, status=received
+2026-11-01 15:36:00,934 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400062, reqid=9ab302c2-557c-4651-9e95-310f9b23c6e2
+2026-11-01 15:36:00,934 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:00,957 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400062 successfully processed -> ready_to_send
+2026-11-01 15:36:00,982 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400062, reqid=9ab302c2-557c-4651-9e95-310f9b23c6e2, topic=gru.balance.response
+2026-11-01 15:36:00,991 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400062 finalized with status=completed
+2026-11-01 15:36:03,026 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:03,034 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400063, reqid=88b35075-d79d-4d7b-b7f4-dfebcb4fba78, status=received
+2026-11-01 15:36:03,050 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400063, reqid=88b35075-d79d-4d7b-b7f4-dfebcb4fba78
+2026-11-01 15:36:03,051 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:03,064 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400063 successfully processed -> ready_to_send
+2026-11-01 15:36:03,100 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400063, reqid=88b35075-d79d-4d7b-b7f4-dfebcb4fba78, topic=gru.balance.response
+2026-11-01 15:36:03,105 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400063 finalized with status=completed
+2026-11-01 15:36:05,020 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:05,028 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400064, reqid=72ea1ff6-e714-47b6-8cf3-183ccfd06977, status=received
+2026-11-01 15:36:05,055 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400064, reqid=72ea1ff6-e714-47b6-8cf3-183ccfd06977
+2026-11-01 15:36:05,056 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:05,074 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400064 successfully processed -> ready_to_send
+2026-11-01 15:36:05,105 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400064, reqid=72ea1ff6-e714-47b6-8cf3-183ccfd06977, topic=gru.balance.response
+2026-11-01 15:36:05,109 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400064 finalized with status=completed
+2026-11-01 15:36:07,144 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:07,161 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400065, reqid=ed9f489b-151e-496a-9962-47a983cd7214, status=received
+2026-11-01 15:36:07,182 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400065, reqid=ed9f489b-151e-496a-9962-47a983cd7214
+2026-11-01 15:36:07,183 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:07,202 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400065 successfully processed -> ready_to_send
+2026-11-01 15:36:07,234 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400065, reqid=ed9f489b-151e-496a-9962-47a983cd7214, topic=gru.balance.response
+2026-11-01 15:36:07,238 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400065 finalized with status=completed
+2026-11-01 15:36:09,250 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:09,260 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400066, reqid=7b5241c4-8794-4e14-b42c-afa587ebf027, status=received
+2026-11-01 15:36:09,283 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400066, reqid=7b5241c4-8794-4e14-b42c-afa587ebf027
+2026-11-01 15:36:09,284 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:09,302 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400066 successfully processed -> ready_to_send
+2026-11-01 15:36:09,316 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400066, reqid=7b5241c4-8794-4e14-b42c-afa587ebf027, topic=gru.balance.response
+2026-11-01 15:36:09,321 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400066 finalized with status=completed
+2026-11-01 15:36:11,335 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:11,343 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400067, reqid=9a5f54c5-9a67-4dba-bfa1-bbf192f5957e, status=received
+2026-11-01 15:36:11,351 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400067, reqid=9a5f54c5-9a67-4dba-bfa1-bbf192f5957e
+2026-11-01 15:36:11,351 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:11,364 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400067 successfully processed -> ready_to_send
+2026-11-01 15:36:11,377 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400067, reqid=9a5f54c5-9a67-4dba-bfa1-bbf192f5957e, topic=gru.balance.response
+2026-11-01 15:36:11,382 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400067 finalized with status=completed
+2026-11-01 15:36:14,181 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:14,189 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400068, reqid=65bb814a-e74c-4592-9494-8b314c8545ea, status=received
+2026-11-01 15:36:14,194 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400068, reqid=65bb814a-e74c-4592-9494-8b314c8545ea
+2026-11-01 15:36:14,194 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:14,206 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400068 successfully processed -> ready_to_send
+2026-11-01 15:36:14,217 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400068, reqid=65bb814a-e74c-4592-9494-8b314c8545ea, topic=gru.balance.response
+2026-11-01 15:36:14,221 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400068 finalized with status=completed
+2026-11-01 15:36:16,641 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:16,649 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400069, reqid=a0a0395a-1501-4653-af4a-a4217135aa5c, status=received
+2026-11-01 15:36:16,662 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400069, reqid=a0a0395a-1501-4653-af4a-a4217135aa5c
+2026-11-01 15:36:16,663 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:16,676 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400069 successfully processed -> ready_to_send
+2026-11-01 15:36:16,688 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400069, reqid=a0a0395a-1501-4653-af4a-a4217135aa5c, topic=gru.balance.response
+2026-11-01 15:36:16,694 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400069 finalized with status=completed
+2026-11-01 15:36:18,984 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:19,000 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400070, reqid=8aceaab8-2deb-4f8d-b0dd-7a73804d3652, status=received
+2026-11-01 15:36:19,007 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400070, reqid=8aceaab8-2deb-4f8d-b0dd-7a73804d3652
+2026-11-01 15:36:19,008 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:19,020 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400070 successfully processed -> ready_to_send
+2026-11-01 15:36:19,045 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400070, reqid=8aceaab8-2deb-4f8d-b0dd-7a73804d3652, topic=gru.balance.response
+2026-11-01 15:36:19,050 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400070 finalized with status=completed
+2026-11-01 15:36:21,094 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:21,103 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400071, reqid=e04bdeb0-80ef-45c9-ac0d-5f56abea92c9, status=received
+2026-11-01 15:36:21,128 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400071, reqid=e04bdeb0-80ef-45c9-ac0d-5f56abea92c9
+2026-11-01 15:36:21,128 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:21,140 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400071 successfully processed -> ready_to_send
+2026-11-01 15:36:21,154 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400071, reqid=e04bdeb0-80ef-45c9-ac0d-5f56abea92c9, topic=gru.balance.response
+2026-11-01 15:36:21,157 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400071 finalized with status=completed
+2026-11-01 15:36:23,644 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:23,652 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400072, reqid=00dd0cc4-6696-4ac3-a944-b3396d248b0a, status=received
+2026-11-01 15:36:23,667 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400072, reqid=00dd0cc4-6696-4ac3-a944-b3396d248b0a
+2026-11-01 15:36:23,668 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:23,689 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400072 successfully processed -> ready_to_send
+2026-11-01 15:36:23,718 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400072, reqid=00dd0cc4-6696-4ac3-a944-b3396d248b0a, topic=gru.balance.response
+2026-11-01 15:36:23,725 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400072 finalized with status=completed
+2026-11-01 15:36:25,958 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:25,968 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400073, reqid=d422a3a3-a8f0-4fdd-bad3-412085d2faac, status=received
+2026-11-01 15:36:25,988 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400073, reqid=d422a3a3-a8f0-4fdd-bad3-412085d2faac
+2026-11-01 15:36:25,989 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:26,003 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400073 successfully processed -> ready_to_send
+2026-11-01 15:36:26,038 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400073, reqid=d422a3a3-a8f0-4fdd-bad3-412085d2faac, topic=gru.balance.response
+2026-11-01 15:36:26,041 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400073 finalized with status=completed
+2026-11-01 15:36:28,240 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:28,251 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400074, reqid=b0e072ad-e33b-48f9-b486-bbbf353da21a, status=received
+2026-11-01 15:36:28,258 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400074, reqid=b0e072ad-e33b-48f9-b486-bbbf353da21a
+2026-11-01 15:36:28,258 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:28,274 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400074 successfully processed -> ready_to_send
+2026-11-01 15:36:28,283 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400074, reqid=b0e072ad-e33b-48f9-b486-bbbf353da21a, topic=gru.balance.response
+2026-11-01 15:36:28,286 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400074 finalized with status=completed
+2026-11-01 15:36:30,353 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:30,361 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400075, reqid=3144a72f-a624-455c-b3af-82b86ab3f51a, status=received
+2026-11-01 15:36:30,366 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400075, reqid=3144a72f-a624-455c-b3af-82b86ab3f51a
+2026-11-01 15:36:30,366 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:30,386 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400075 successfully processed -> ready_to_send
+2026-11-01 15:36:30,415 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400075, reqid=3144a72f-a624-455c-b3af-82b86ab3f51a, topic=gru.balance.response
+2026-11-01 15:36:30,419 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400075 finalized with status=completed
+2026-11-01 15:36:32,706 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:32,714 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400076, reqid=d2fce62c-d1a8-42f6-a669-1701ce0e7d39, status=received
+2026-11-01 15:36:32,731 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400076, reqid=d2fce62c-d1a8-42f6-a669-1701ce0e7d39
+2026-11-01 15:36:32,732 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:32,746 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400076 successfully processed -> ready_to_send
+2026-11-01 15:36:32,756 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400076, reqid=d2fce62c-d1a8-42f6-a669-1701ce0e7d39, topic=gru.balance.response
+2026-11-01 15:36:32,760 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400076 finalized with status=completed
+2026-11-01 15:36:35,027 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:35,036 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400077, reqid=10372e3c-b3f8-4285-a7b1-aec35cbf25f2, status=received
+2026-11-01 15:36:35,061 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400077, reqid=10372e3c-b3f8-4285-a7b1-aec35cbf25f2
+2026-11-01 15:36:35,061 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:35,075 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400077 successfully processed -> ready_to_send
+2026-11-01 15:36:35,085 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400077, reqid=10372e3c-b3f8-4285-a7b1-aec35cbf25f2, topic=gru.balance.response
+2026-11-01 15:36:35,089 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400077 finalized with status=completed
+2026-11-01 15:36:37,199 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:37,207 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400078, reqid=a57323c5-41f9-40e8-b91f-b54b766ec9ab, status=received
+2026-11-01 15:36:37,212 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400078, reqid=a57323c5-41f9-40e8-b91f-b54b766ec9ab
+2026-11-01 15:36:37,213 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:37,225 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400078 successfully processed -> ready_to_send
+2026-11-01 15:36:37,237 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400078, reqid=a57323c5-41f9-40e8-b91f-b54b766ec9ab, topic=gru.balance.response
+2026-11-01 15:36:37,242 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400078 finalized with status=completed
+2026-11-01 15:36:39,475 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:39,482 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400079, reqid=73e5ba26-e181-49da-83c0-0ee70a57d1d8, status=received
+2026-11-01 15:36:39,497 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400079, reqid=73e5ba26-e181-49da-83c0-0ee70a57d1d8
+2026-11-01 15:36:39,497 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:39,510 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400079 successfully processed -> ready_to_send
+2026-11-01 15:36:39,521 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400079, reqid=73e5ba26-e181-49da-83c0-0ee70a57d1d8, topic=gru.balance.response
+2026-11-01 15:36:39,526 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400079 finalized with status=completed
+2026-11-01 15:36:41,487 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:41,499 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400080, reqid=bd8a422f-ead2-4602-a41f-11ffeb48d6de, status=received
+2026-11-01 15:36:41,514 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400080, reqid=bd8a422f-ead2-4602-a41f-11ffeb48d6de
+2026-11-01 15:36:41,515 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:41,533 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400080 successfully processed -> ready_to_send
+2026-11-01 15:36:41,564 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400080, reqid=bd8a422f-ead2-4602-a41f-11ffeb48d6de, topic=gru.balance.response
+2026-11-01 15:36:41,567 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400080 finalized with status=completed
+2026-11-01 15:36:43,641 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:43,650 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400081, reqid=8830290a-fd99-426e-badd-3d0c4131507e, status=received
+2026-11-01 15:36:43,656 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400081, reqid=8830290a-fd99-426e-badd-3d0c4131507e
+2026-11-01 15:36:43,657 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:43,670 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400081 successfully processed -> ready_to_send
+2026-11-01 15:36:43,682 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400081, reqid=8830290a-fd99-426e-badd-3d0c4131507e, topic=gru.balance.response
+2026-11-01 15:36:43,685 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400081 finalized with status=completed
+2026-11-01 15:36:45,721 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:45,729 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400082, reqid=e5511c01-a631-4897-b46a-72761154624a, status=received
+2026-11-01 15:36:45,757 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400082, reqid=e5511c01-a631-4897-b46a-72761154624a
+2026-11-01 15:36:45,757 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:45,771 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400082 successfully processed -> ready_to_send
+2026-11-01 15:36:45,781 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400082, reqid=e5511c01-a631-4897-b46a-72761154624a, topic=gru.balance.response
+2026-11-01 15:36:45,786 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400082 finalized with status=completed
+2026-11-01 15:36:47,665 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:47,674 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400083, reqid=7d5cd974-c8e0-4d67-9155-b8aaaceb3cba, status=received
+2026-11-01 15:36:47,680 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400083, reqid=7d5cd974-c8e0-4d67-9155-b8aaaceb3cba
+2026-11-01 15:36:47,680 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:47,698 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400083 successfully processed -> ready_to_send
+2026-11-01 15:36:47,727 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400083, reqid=7d5cd974-c8e0-4d67-9155-b8aaaceb3cba, topic=gru.balance.response
+2026-11-01 15:36:47,732 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400083 finalized with status=completed
+2026-11-01 15:36:49,712 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:49,722 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400084, reqid=e776580c-2465-4da5-bfa1-f0df2563edf5, status=received
+2026-11-01 15:36:49,734 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400084, reqid=e776580c-2465-4da5-bfa1-f0df2563edf5
+2026-11-01 15:36:49,735 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:49,748 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400084 successfully processed -> ready_to_send
+2026-11-01 15:36:49,759 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400084, reqid=e776580c-2465-4da5-bfa1-f0df2563edf5, topic=gru.balance.response
+2026-11-01 15:36:49,764 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400084 finalized with status=completed
+2026-11-01 15:36:51,735 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:51,744 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400085, reqid=c9caabf0-ac7a-419f-aee3-a25e3f493041, status=received
+2026-11-01 15:36:51,771 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400085, reqid=c9caabf0-ac7a-419f-aee3-a25e3f493041
+2026-11-01 15:36:51,771 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:51,784 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400085 successfully processed -> ready_to_send
+2026-11-01 15:36:51,795 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400085, reqid=c9caabf0-ac7a-419f-aee3-a25e3f493041, topic=gru.balance.response
+2026-11-01 15:36:51,799 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400085 finalized with status=completed
+2026-11-01 15:36:54,068 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:54,075 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400086, reqid=e4c83de1-6b9f-4e8f-aaed-93aeaefa58a4, status=received
+2026-11-01 15:36:54,087 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400086, reqid=e4c83de1-6b9f-4e8f-aaed-93aeaefa58a4
+2026-11-01 15:36:54,087 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:54,102 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400086 successfully processed -> ready_to_send
+2026-11-01 15:36:54,112 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400086, reqid=e4c83de1-6b9f-4e8f-aaed-93aeaefa58a4, topic=gru.balance.response
+2026-11-01 15:36:54,116 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400086 finalized with status=completed
+2026-11-01 15:36:56,336 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:56,343 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400087, reqid=d8cc18f2-cdbc-4a1b-bc31-c898071b13f6, status=received
+2026-11-01 15:36:56,350 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400087, reqid=d8cc18f2-cdbc-4a1b-bc31-c898071b13f6
+2026-11-01 15:36:56,351 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:56,363 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400087 successfully processed -> ready_to_send
+2026-11-01 15:36:56,374 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400087, reqid=d8cc18f2-cdbc-4a1b-bc31-c898071b13f6, topic=gru.balance.response
+2026-11-01 15:36:56,378 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400087 finalized with status=completed
+2026-11-01 15:36:58,500 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:36:58,508 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400088, reqid=c699ced5-a86f-4dc2-b786-515e5192c47e, status=received
+2026-11-01 15:36:58,520 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400088, reqid=c699ced5-a86f-4dc2-b786-515e5192c47e
+2026-11-01 15:36:58,520 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:36:58,534 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400088 successfully processed -> ready_to_send
+2026-11-01 15:36:58,543 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400088, reqid=c699ced5-a86f-4dc2-b786-515e5192c47e, topic=gru.balance.response
+2026-11-01 15:36:58,546 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400088 finalized with status=completed
+2026-11-01 15:37:01,072 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:01,084 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400089, reqid=c9a561b9-aadb-4c42-8bff-e1ed7ff8da8a, status=received
+2026-11-01 15:37:01,102 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400089, reqid=c9a561b9-aadb-4c42-8bff-e1ed7ff8da8a
+2026-11-01 15:37:01,102 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:01,115 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400089 successfully processed -> ready_to_send
+2026-11-01 15:37:01,125 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400089, reqid=c9a561b9-aadb-4c42-8bff-e1ed7ff8da8a, topic=gru.balance.response
+2026-11-01 15:37:01,129 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400089 finalized with status=completed
+2026-11-01 15:37:03,160 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:03,167 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400090, reqid=39a4b218-f823-40a9-9c65-36cda928529b, status=received
+2026-11-01 15:37:03,183 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400090, reqid=39a4b218-f823-40a9-9c65-36cda928529b
+2026-11-01 15:37:03,183 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:03,196 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400090 successfully processed -> ready_to_send
+2026-11-01 15:37:03,207 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400090, reqid=39a4b218-f823-40a9-9c65-36cda928529b, topic=gru.balance.response
+2026-11-01 15:37:03,210 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400090 finalized with status=completed
+2026-11-01 15:37:05,552 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:05,560 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400091, reqid=6e4f8c06-01ba-43cd-8b2c-432a0ec445f5, status=received
+2026-11-01 15:37:05,570 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400091, reqid=6e4f8c06-01ba-43cd-8b2c-432a0ec445f5
+2026-11-01 15:37:05,570 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:05,583 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400091 successfully processed -> ready_to_send
+2026-11-01 15:37:05,594 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400091, reqid=6e4f8c06-01ba-43cd-8b2c-432a0ec445f5, topic=gru.balance.response
+2026-11-01 15:37:05,597 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400091 finalized with status=completed
+2026-11-01 15:37:07,724 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:07,734 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400092, reqid=16dacfca-a864-41d3-9117-a373d80846d1, status=received
+2026-11-01 15:37:07,747 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400092, reqid=16dacfca-a864-41d3-9117-a373d80846d1
+2026-11-01 15:37:07,747 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:07,762 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400092 successfully processed -> ready_to_send
+2026-11-01 15:37:07,772 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400092, reqid=16dacfca-a864-41d3-9117-a373d80846d1, topic=gru.balance.response
+2026-11-01 15:37:07,777 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400092 finalized with status=completed
+2026-11-01 15:37:09,925 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:09,935 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400093, reqid=8f6c3e0b-8c72-472b-8e88-08ec018bcf69, status=received
+2026-11-01 15:37:09,945 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) processing transaction: id=400093, reqid=8f6c3e0b-8c72-472b-8e88-08ec018bcf69
+2026-11-01 15:37:09,946 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-2) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:09,961 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-2) transaction id=400093 successfully processed -> ready_to_send
+2026-11-01 15:37:09,994 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) dispatching response: id=400093, reqid=8f6c3e0b-8c72-472b-8e88-08ec018bcf69, topic=gru.balance.response
+2026-11-01 15:37:09,999 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-1) transaction id=400093 finalized with status=completed
+2026-11-01 15:37:12,238 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:12,245 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400094, reqid=db01caa4-a5c9-44b1-9631-a423533149d0, status=received
+2026-11-01 15:37:12,261 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400094, reqid=db01caa4-a5c9-44b1-9631-a423533149d0
+2026-11-01 15:37:12,261 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:12,273 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400094 successfully processed -> ready_to_send
+2026-11-01 15:37:12,285 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400094, reqid=db01caa4-a5c9-44b1-9631-a423533149d0, topic=gru.balance.response
+2026-11-01 15:37:12,288 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400094 finalized with status=completed
+2026-11-01 15:37:14,389 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:14,397 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400095, reqid=d6d39496-3a72-4e58-b7b1-fce733a3479e, status=received
+2026-11-01 15:37:14,417 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) processing transaction: id=400095, reqid=d6d39496-3a72-4e58-b7b1-fce733a3479e
+2026-11-01 15:37:14,418 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-1) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:14,429 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-1) transaction id=400095 successfully processed -> ready_to_send
+2026-11-01 15:37:14,440 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) dispatching response: id=400095, reqid=d6d39496-3a72-4e58-b7b1-fce733a3479e, topic=gru.balance.response
+2026-11-01 15:37:14,445 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-0) transaction id=400095 finalized with status=completed
+2026-11-01 15:37:16,595 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:16,604 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400096, reqid=bb22e326-cb22-4507-adc7-bd5fae5a0f6b, status=received
+2026-11-01 15:37:16,609 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400096, reqid=bb22e326-cb22-4507-adc7-bd5fae5a0f6b
+2026-11-01 15:37:16,610 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:16,624 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400096 successfully processed -> ready_to_send
+2026-11-01 15:37:16,633 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400096, reqid=bb22e326-cb22-4507-adc7-bd5fae5a0f6b, topic=gru.balance.response
+2026-11-01 15:37:16,638 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400096 finalized with status=completed
+2026-11-01 15:37:18,886 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:18,896 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400097, reqid=0937254e-91de-40fd-92aa-3925cfdd987a, status=received
+2026-11-01 15:37:18,904 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400097, reqid=0937254e-91de-40fd-92aa-3925cfdd987a
+2026-11-01 15:37:18,905 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:18,919 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400097 successfully processed -> ready_to_send
+2026-11-01 15:37:18,955 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400097, reqid=0937254e-91de-40fd-92aa-3925cfdd987a, topic=gru.balance.response
+2026-11-01 15:37:18,959 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400097 finalized with status=completed
+2026-11-01 15:37:20,852 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:20,860 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400098, reqid=ad5e58ca-41cd-42a1-a9fa-9e11c27fa751, status=received
+2026-11-01 15:37:20,883 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400098, reqid=ad5e58ca-41cd-42a1-a9fa-9e11c27fa751
+2026-11-01 15:37:20,884 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:20,898 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400098 successfully processed -> ready_to_send
+2026-11-01 15:37:20,908 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400098, reqid=ad5e58ca-41cd-42a1-a9fa-9e11c27fa751, topic=gru.balance.response
+2026-11-01 15:37:20,912 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400098 finalized with status=completed
+2026-11-01 15:37:22,958 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:22,966 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400099, reqid=777b0a48-fe7e-4ef4-8304-3b74e78ecc29, status=received
+2026-11-01 15:37:22,978 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) processing transaction: id=400099, reqid=777b0a48-fe7e-4ef4-8304-3b74e78ecc29
+2026-11-01 15:37:22,978 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-3) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:22,989 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-3) transaction id=400099 successfully processed -> ready_to_send
+2026-11-01 15:37:23,002 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) dispatching response: id=400099, reqid=777b0a48-fe7e-4ef4-8304-3b74e78ecc29, topic=gru.balance.response
+2026-11-01 15:37:23,006 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-3) transaction id=400099 finalized with status=completed
+2026-11-01 15:37:25,041 INFO  [ru.ito.ill.wor.ConsumeWorker] (consume-worker-thread) polled 1 records from topic
+2026-11-01 15:37:25,051 INFO  [ru.ito.ill.ser.ConsumeService] (consume-worker-thread) persisted transaction: id=400100, reqid=39b94322-8566-46a5-8e42-2aa5c3145bfd, status=received
+2026-11-01 15:37:25,065 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) processing transaction: id=400100, reqid=39b94322-8566-46a5-8e42-2aa5c3145bfd
+2026-11-01 15:37:25,065 DEBUG [ru.ito.ill.ser.AppControllerClient] (processing-worker-0) app_controller: verifying 100 accounts routing
+2026-11-01 15:37:25,077 DEBUG [ru.ito.ill.ser.ProcessingService] (processing-worker-0) transaction id=400100 successfully processed -> ready_to_send
+2026-11-01 15:37:25,088 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) dispatching response: id=400100, reqid=39b94322-8566-46a5-8e42-2aa5c3145bfd, topic=gru.balance.response
+2026-11-01 15:37:25,092 DEBUG [ru.ito.ill.ser.ProduceService] (produce-worker-2) transaction id=400100 finalized with status=completed
+2026-11-01 17:41:00,985 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) Failed to validate Schema: Schema-validation: wrong column type encountered in column [STATUS_IN] in table [`ACC_APP_CHANGER`.`APP_CHANGER_CONFIG`]; found [int2 (Types#SMALLINT)], but expecting [integer (Types#INTEGER)]
+2026-11-01 17:41:01,030 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) The following SQL may resolve the database issues, as generated by the Hibernate schema migration tool. WARNING: You must manually verify this SQL is correct, this is a best effort guess, do not copy/paste it without verifying that it does what you expect.
+
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_IN" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_OUT" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "DIR" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "NODE_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "EVENT_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQ_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQUEST_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_CODE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DESC" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "STATUS" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "SYSTEM_ID" set data type varchar(255);
+
+2026-11-01 17:44:54,334 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) Failed to validate Schema: Schema-validation: wrong column type encountered in column [STATUS_IN] in table [`ACC_APP_CHANGER`.`APP_CHANGER_CONFIG`]; found [int2 (Types#SMALLINT)], but expecting [integer (Types#INTEGER)]
+2026-11-01 17:44:54,391 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) The following SQL may resolve the database issues, as generated by the Hibernate schema migration tool. WARNING: You must manually verify this SQL is correct, this is a best effort guess, do not copy/paste it without verifying that it does what you expect.
+
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_IN" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_OUT" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "DIR" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "NODE_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "EVENT_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQ_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQUEST_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_CODE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DESC" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "STATUS" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "SYSTEM_ID" set data type varchar(255);
+
+2026-11-01 20:25:40,167 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) Failed to validate Schema: Schema-validation: wrong column type encountered in column [STATUS_IN] in table [`ACC_APP_CHANGER`.`APP_CHANGER_CONFIG`]; found [int2 (Types#SMALLINT)], but expecting [integer (Types#INTEGER)]
+2026-11-01 20:25:40,209 ERROR [io.qua.hib.orm.run.sch.SchemaManagementIntegrator] (Hibernate post-boot validation thread for <default>) The following SQL may resolve the database issues, as generated by the Hibernate schema migration tool. WARNING: You must manually verify this SQL is correct, this is a best effort guess, do not copy/paste it without verifying that it does what you expect.
+
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_IN" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_CONFIG" alter column "STATUS_OUT" set data type integer;
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "DIR" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "MSG_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "NODE_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_IO_MSGS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "EVENT_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "PROTOCOL_TYPE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQ_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "REQUEST_ID" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_CODE" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DATA" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "RESP_DESC" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "STATUS" set data type varchar(255);
+alter table if exists "ACC_APP_CHANGER"."APP_CHANGER_TRANS" alter column "SYSTEM_ID" set data type varchar(255);
+
+2026-11-02 15:12:46,479 WARN  [io.qua.config] (Quarkus Main Thread) Unrecognized configuration key "quarkus.hibernate-orm.schema-generation.database.action" was provided; it will be ignored; verify that the dependency extension for this configuration is set or that you did not make a typo

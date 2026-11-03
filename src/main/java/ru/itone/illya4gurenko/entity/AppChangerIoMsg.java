@@ -10,11 +10,12 @@ import jakarta.persistence.Table;
 import java.time.ZonedDateTime;
 
 /**
- * сущность таблицы аудита сообщений
+ * сущность таблицы аудита входящих и исходящих сообщений
  */
 @Entity
 @Table(name = "APP_CHANGER_IO_MSGS", schema = "ACC_APP_CHANGER")
 public class AppChangerIoMsg extends PanacheEntityBase {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
@@ -32,7 +33,7 @@ public class AppChangerIoMsg extends PanacheEntityBase {
     @Column(name = "DIR")
     public String dir;
 
-    @Column(name = "MSG")
+    @Column(name = "MSG", columnDefinition = "TEXT")
     public String msg;
 
     @Column(name = "NODE_ID")

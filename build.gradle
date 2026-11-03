@@ -48,6 +48,7 @@ tasks.withType(JavaExec).configureEach {
 // передача --add-opens для junit тестов
 tasks.withType(Test).configureEach {
     jvmArgs("--add-opens=java.base/java.lang=ALL-UNNAMED")
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
 }
 
 // передача --add-opens для dev режима quarkus
