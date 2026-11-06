@@ -29,7 +29,6 @@ public class KafkaConsumerFactory {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 50);
 
         return new KafkaConsumer<>(props);
     }

@@ -1,0 +1,10 @@
+gradle.bat quarkusDev -Dapp.node-id=161
+gradle.bat quarkusDev -Dquarkus.http.port=8081 -Ddebug=5006 -Dapp.node-id=162
+
+
+
+.\gradlew.bat bootJar
+
+java -Dserver.port=8082 -Dpc.number=161 -Ddynamic.log.path=./logs/gru-adapter-161 -jar build/libs/app-adapter-0.0.1-SNAPSHOT.jar
+
+java -Dserver.port=8083 -Dpc.number=162 -Ddynamic.log.path=./logs/gru-adapter-162 -jar build/libs/app-adapter-0.0.1-SNAPSHOT.jar

@@ -50,11 +50,7 @@ public class ProcedureDao {
     }
 
     private ProcedureResult executeInternal(Connection conn, List<RequestEventDto> events) throws SQLException {
-        setupTempInTable(conn, events);
-
-        try (Statement stmt = conn.createStatement()) {
-            stmt.execute("DECLARE " + CUR_IN_NAME + " CURSOR FOR SELECT account, operation, amount, currency FROM temp_proc_in;");
-        }
+        openInputCursor(conn, events);
 
         String callSql = "CALL \"ACC_APP_CHANGER\".changer_data_account(?, ?, ?, ?);";
         int outCode;
@@ -96,29 +92,26 @@ public class ProcedureDao {
         return new ProcedureResult(0, null, balances);
     }
 
-    private void setupTempInTable(Connection conn, List<RequestEventDto> events) throws SQLException {
-        try (Statement stmt = conn.createStatement()) {
-            stmt.execute("""
-                CREATE TEMP TABLE IF NOT EXISTS temp_proc_in (
-                    account VARCHAR,
-                    operation VARCHAR,
-                    amount NUMERIC(23, 3),
-                    currency VARCHAR
-                ) ON COMMIT PRESERVE ROWS;
-                TRUNCATE temp_proc_in;
-            """);
-        }
+    private void openInputCursor(Connection conn, List<RequestEventDto> events) throws SQLException {
+        StringBuilder sql = new StringBuilder("DECLARE ").append(CUR_IN_NAME).append(" CURSOR FOR VALUES ");
+        for (int i = 0; i < events.size(); i++) {
+            RequestEventDto event = events.get(i);
+            String account = event.systemAccount() != null ? event.systemAccount().replace("'", "''") : "";
+            String operation = event.operation() != null ? event.operation().replace("'", "''") : "";
+            BigDecimal amount = event.xalfa() != null ? event.xalfa() : BigDecimal.ZERO;
+            String currency = event.currency() != null ? event.currency().replace("'", "''") : "";
 
-        String insertSql = "INSERT INTO temp_proc_in (account, operation, amount, currency) VALUES (?, ?, ?, ?);";
-        try (PreparedStatement ps = conn.prepareStatement(insertSql)) {
-            for (RequestEventDto event : events) {
-                ps.setString(1, event.systemAccount());
-                ps.setString(2, event.operation());
-                ps.setBigDecimal(3, event.xalfa() != null ? event.xalfa() : BigDecimal.ZERO);
-                ps.setString(4, event.currency());
-                ps.addBatch();
+            sql.append("('").append(account)
+               .append("', '").append(operation)
+               .append("', ").append(amount.toPlainString()).append("::numeric(23,3), '")
+               .append(currency).append("')");
+
+            if (i < events.size() - 1) {
+                sql.append(", ");
             }
-            ps.executeBatch();
+        }
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute(sql.toString());
         }
     }
 }

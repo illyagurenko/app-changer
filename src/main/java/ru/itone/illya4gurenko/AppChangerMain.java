@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.itone.illya4gurenko.dao.ConfigDao;
 import ru.itone.illya4gurenko.entity.AppChangerConfig;
+import ru.itone.illya4gurenko.kafka.KafkaTopicManager;
 import ru.itone.illya4gurenko.worker.ConsumeWorker;
 import ru.itone.illya4gurenko.worker.ProcessingWorker;
 import ru.itone.illya4gurenko.worker.ProduceWorker;
@@ -35,6 +36,9 @@ public class AppChangerMain {
     @Inject
     ProduceWorker produceWorker;
 
+    @Inject
+    KafkaTopicManager kafkaTopicManager;
+
     public static void main(String[] args) {
         Quarkus.run(args);
     }
@@ -50,6 +54,9 @@ public class AppChangerMain {
             log.error("config for systemid='GRU' not found in database");
             return;
         }
+
+        kafkaTopicManager.ensureTopicPartitions(config.protocolIn, 4);
+        kafkaTopicManager.ensureTopicPartitions(config.protocolOut, 4);
 
         log.info("loaded config: in={}, out={}, status_in={}, status_out={}",
                 config.protocolIn, config.protocolOut, config.statusIn, config.statusOut);

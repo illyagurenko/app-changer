@@ -51,6 +51,7 @@ public class ConsumeWorker implements Runnable {
 
         try {
             while (isRunning.get()) {
+
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
                 if (records.isEmpty()) continue;
 

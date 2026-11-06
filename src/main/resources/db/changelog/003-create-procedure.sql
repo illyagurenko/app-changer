@@ -20,17 +20,13 @@ DECLARE
 
     v_old_tbal  NUMERIC(23, 3);
     v_new_tbal  NUMERIC(23, 3);
+
+    v_accounts  VARCHAR[] := '{}';
+    v_old_tbals NUMERIC(23, 3)[] := '{}';
+    v_new_tbals NUMERIC(23, 3)[] := '{}';
 BEGIN
     code := 0;
     message := NULL;
-
-    CREATE TEMP TABLE IF NOT EXISTS temp_account_balances (
-        "account" VARCHAR,
-        "oldTbal" NUMERIC(23, 3),
-        "newTbal" NUMERIC(23, 3)
-    ) ON COMMIT PRESERVE ROWS;
-
-    TRUNCATE temp_account_balances;
 
     LOOP
         FETCH cur_in INTO v_account, v_operation, v_amount, v_currency;
@@ -49,11 +45,14 @@ BEGIN
                 v_new_tbal := v_old_tbal;
         END CASE;
 
-        INSERT INTO temp_account_balances ("account", "oldTbal", "newTbal")
-        VALUES (v_account, v_old_tbal, v_new_tbal);
+        v_accounts  := array_append(v_accounts, v_account);
+        v_old_tbals := array_append(v_old_tbals, v_old_tbal);
+        v_new_tbals := array_append(v_new_tbals, v_new_tbal);
     END LOOP;
 
-    OPEN cur_out FOR SELECT "account", "oldTbal", "newTbal" FROM temp_account_balances;
+    OPEN cur_out FOR
+        SELECT a AS "account", o AS "oldTbal", n AS "newTbal"
+        FROM unnest(v_accounts, v_old_tbals, v_new_tbals) AS t(a, o, n);
 
 EXCEPTION WHEN OTHERS THEN
     code := 1;
