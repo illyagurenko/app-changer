@@ -28,7 +28,8 @@ public final class JsonUtils {
         try {
             return MAPPER.readValue(json, clazz);
         } catch (Exception e) {
-            throw new RuntimeException("failed to deserialize json: " + json, e);
+            String preview = (json != null && json.length() > 150) ? json.substring(0, 150) + "..." : json;
+            throw new RuntimeException("failed to deserialize json: " + preview, e);
         }
     }
 

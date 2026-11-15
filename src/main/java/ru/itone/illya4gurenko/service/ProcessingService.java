@@ -107,7 +107,7 @@ public class ProcessingService {
                         null
                 );
                 trans.respCode = String.valueOf(procResult.code());
-                trans.respDesc = procResult.message();
+                trans.respDesc = truncate(procResult.message(), 255);
             }
 
             trans.respData = JsonUtils.toJson(responseDto);
@@ -123,6 +123,7 @@ public class ProcessingService {
     }
 
     private void failTransaction(AppChangerTrans trans, RequestKafkaDto requestDto, String errorMsg) {
+        String safeErrorMsg = truncate(errorMsg, 255);
         ResponseKafkaDto errorResponse = new ResponseKafkaDto(
                 System.currentTimeMillis(),
                 "SMART",
@@ -130,20 +131,25 @@ public class ProcessingService {
                 requestDto.eventType(),
                 requestDto.entityType(),
                 "ERROR",
-                new ErrorDto("ROUTING_ERR", errorMsg),
+                new ErrorDto("ROUTING_ERR", safeErrorMsg),
                 null
         );
         trans.respData = JsonUtils.toJson(errorResponse);
         trans.status = "READY_TO_SEND";
         trans.respCode = "ROUTING_ERR";
-        trans.respDesc = errorMsg;
+        trans.respDesc = safeErrorMsg;
         trans.updTs = ZonedDateTime.now();
     }
 
     private void markFailed(AppChangerTrans trans, String errorMsg) {
         trans.status = "PROCESSING_ERROR";
-        trans.respDesc = errorMsg;
+        trans.respDesc = truncate(errorMsg, 255);
         trans.updTs = ZonedDateTime.now();
+    }
+
+    private static String truncate(String str, int maxLen) {
+        if (str == null) return null;
+        return str.length() > maxLen ? str.substring(0, maxLen) : str;
     }
 
 

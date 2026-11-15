@@ -1,11 +1,13 @@
 package ru.itone.illya4gurenko.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import java.util.List;
 
 /**
  * корневой json входящего сообщения из кафки
  */
+@RegisterForReflection
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record RequestKafkaDto(
         Long actualTimestamp,

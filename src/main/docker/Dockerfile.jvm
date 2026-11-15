@@ -1,4 +1,4 @@
-FROM eclipse-temurin:25-jre
+FROM ghcr.io/graalvm/jdk-community:25
 
 ENV LANGUAGE='en_US:en'
 ENV LC_ALL='en_US.UTF-8'

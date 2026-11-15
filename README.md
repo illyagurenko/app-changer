@@ -90,23 +90,40 @@ docker compose up -d
 
 ## Сборка и запуск в Docker
 
-### Сборка Fast-JAR
+Сервис поддерживает работу как в JVM-режиме, так и в **GraalVM Native Image** (скомпилированный машинный бинарник Linux ELF).
+
+### 1. Сборка Native Image (GraalVM / Mandrel 25)
+
+Для сборки нативного бинарника под Linux используется официальный Mandrel-билдер под Java 25:
 ```bash
-./gradlew build
+./gradlew build \
+  "-Dquarkus.native.enabled=true" \
+  "-Dquarkus.package.jar.enabled=false" \
+  "-Dquarkus.native.container-build=true" \
+  "-Dquarkus.native.builder-image=quay.io/quarkus/ubi10-quarkus-mandrel-builder-image:jdk-25" \
+  -x test
+```
+После компиляции в папке `build/` создается исполняемый файл `app-changer-1.0.0-runner`.
+
+### 2. Сборка Docker-образа
+```bash
+# Сборка Native-образа на базе ubi9-minimal (без JVM, ~150 МБ)
+docker build -t app-changer:latest .
 ```
 
-### Сборка Docker-образа
+### 3. Запуск в Docker Compose (2 экземпляра)
+
+Сервис разворачивается вместе с PostgreSQL и Apache Kafka в сети `food_bridge` в двух параллельных экземплярах:
+
 ```bash
-docker build -f src/main/docker/Dockerfile.jvm -t app-changer:1.0.0 .
+docker compose up -d
 ```
 
-### Запуск контейнера
-```bash
-docker run -i --rm -p 8080:8080 \
-  -e KAFKA_BOOTSTRAP_SERVERS="host.docker.internal:9092" \
-  -e QUARKUS_DATASOURCE_JDBC_URL="jdbc:postgresql://host.docker.internal:5432/changer_db" \
-  app-changer:1.0.0
-```
+Инстансы и порты:
+* **`app_changer_1` (Native):** порт `8080`, `APP_NODE_ID: 161`
+* **`app_changer_2` (Native):** порт `8081`, `APP_NODE_ID: 162`
+* **Потребление ресурсов:** ~55–60 MiB RAM на инстанс, холодный старт за 1.2 секунды.
+* **Балансировка:** 4 партиции топиков Kafka (`gru.balance.request` и `gru.balance.response`) равномерно распределяются между обеими нодами.
 
 ---
 
@@ -160,6 +177,17 @@ docker run -i --rm -p 8080:8080 \
 
 ## Тестирование
 
-### Запуск интеграционных тестов
+Проект содержит модульные и интеграционные тесты с краткими названиями `@DisplayName` в нижнем регистре и покрытием кода (Jacoco >= 80%).
+
+* **Модульные тесты (`src/test/java`):** изолированное тестирование сервисов (`ProcessingService`, `ProduceService`, `ConsumeService`), воркеров, утилит сериализации с Mockito.
+* **Интеграционные тесты (`src/IntegrationTest/java`):**
+  * Проверка успешного поднятия контекста Quarkus (`@QuarkusTest`).
+  * Сквозное тестирование консьюминга, процессинга и продюсинга ответов с проверкой позитивного и негативного исходов (проверка отклонения и маршрутизации).
+
 ```bash
+# Запуск модульных тестов с отчетом покрытия Jacoco
 ./gradlew test
+
+# Запуск интеграционных тестов
+./gradlew integrationTest
+```
