@@ -99,4 +99,26 @@ class PanacheDaoTest {
         AppChangerTrans acquired = transDao.acquireNextForSending();
         assertNotNull(acquired);
     }
+
+    @Test
+    @Transactional
+    @DisplayName("поиск последней записи io_msgs по направлению и requestId")
+    void testFindLatestIoMsgByDir() {
+        AppChangerTrans trans = transDao.insertReceived("KAFKA", "GRU", "req-io-latest", "BALANCE", "{}");
+        ioMsgsDao.insertIoMsg(trans.id, "KAFKA", "GRU", "IN", "{}", "161");
+        ioMsgsDao.insertIoMsg(trans.id, "KAFKA", "GRU", "OUT", "{}", "161");
+
+        var latestOut = ioMsgsDao.findLatest("OUT");
+        var latestAny = ioMsgsDao.findLatest(null);
+        var byReq = ioMsgsDao.findByRequestIdAndDir("req-io-latest", "IN");
+
+        org.junit.jupiter.api.Assertions.assertAll(
+                () -> assertNotNull(latestOut),
+                () -> org.junit.jupiter.api.Assertions.assertEquals("req-io-latest", latestOut.requestId()),
+                () -> org.junit.jupiter.api.Assertions.assertEquals("OUT", latestOut.dir()),
+                () -> assertNotNull(latestAny),
+                () -> assertNotNull(byReq),
+                () -> org.junit.jupiter.api.Assertions.assertEquals("IN", byReq.dir())
+        );
+    }
 }

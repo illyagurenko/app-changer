@@ -35,6 +35,10 @@ dependencies {
     implementation 'io.quarkus:quarkus-kafka-client'
     implementation 'io.quarkus:quarkus-jackson'
     implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-rest'
+    implementation 'io.quarkus:quarkus-rest-jackson'
+    implementation 'io.quarkus:quarkus-rest'
+    implementation 'io.quarkus:quarkus-rest-jackson'
 
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-mockito'
