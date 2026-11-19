@@ -93,7 +93,16 @@
 2. **Kafka Dual-Broker Failover:**
    Клиент подключается к списку брокеров: `${KAFKA_BROKER_PRIMARY},${KAFKA_BROKER_STANDBY}`.
 
-Переменные настраиваются в файле `.env` в корне проекта.
+Переменные настраиваются в файле `.env` в корне проекта. Пример `.env`:
+```properties
+PG_HOST_PRIMARY=postgres_changer
+PG_PORT_PRIMARY=5432
+PG_HOST_STANDBY=postgres_changer
+PG_PORT_STANDBY=5432
+
+KAFKA_BROKER_PRIMARY=test_kafka:29092
+KAFKA_BROKER_STANDBY=test_kafka:29092
+```
 
 ---
 
@@ -130,13 +139,29 @@ git clone https://github.com/illyagurenko/app-changer
 cd app-changer
 ```
 
-### Шаг 2. Создание общей Docker-сети
+### Шаг 2. Настройка переменных окружения (`.env`)
+Создайте файл `.env` в корне проекта (или скопируйте из `.env.example`):
+```bash
+cp .env.example .env
+```
+Пример содержимого `.env`:
+```properties
+PG_HOST_PRIMARY=postgres_changer
+PG_PORT_PRIMARY=5432
+PG_HOST_STANDBY=postgres_changer
+PG_PORT_STANDBY=5432
+
+KAFKA_BROKER_PRIMARY=test_kafka:29092
+KAFKA_BROKER_STANDBY=test_kafka:29092
+```
+
+### Шаг 3. Создание общей Docker-сети
 Все микросервисы (`publisher`, `adapter`, `changer`) взаимодействуют через внешнюю Docker-сеть `food_bridge`. Создайте её, если она еще не создана:
 ```bash
 docker network create food_bridge
 ```
 
-### Шаг 3. Запуск инфраструктуры (PostgreSQL и Kafka)
+### Шаг 4. Запуск инфраструктуры (PostgreSQL и Kafka)
 Перед сборкой нативного приложения или запуском тестов поднимите БД и Kafka:
 ```bash
 docker compose up -d postgres-changer kafka
@@ -145,7 +170,7 @@ docker compose up -d postgres-changer kafka
 
 ---
 
-### Шаг 4. Сборка Native Image (GraalVM / Mandrel)
+### Шаг 5. Сборка Native Image (GraalVM / Mandrel)
 
 Сборка компилирует приложение в нативный машинный код Linux ELF. Для этого **не требуется** локально установленный GraalVM — компиляция происходит внутри официального Docker-контейнера Mandrel.
 
@@ -168,7 +193,7 @@ docker compose up -d postgres-changer kafka
 
 ---
 
-### Шаг 5. Сборка Docker-образа и запуск двух инстансов
+### Шаг 6. Сборка Docker-образа и запуск двух инстансов
 
 1. Соберите легковесный Docker-образ на базе Red Hat UBI Micro/Minimal (~150 МБ):
    ```bash
@@ -182,7 +207,7 @@ docker compose up -d postgres-changer kafka
 
 ---
 
-### Шаг 6. Проверка работоспособности
+### Шаг 7. Проверка работоспособности
 
 1. **Проверка состояния контейнеров:**
    ```bash
