@@ -1,0 +1,8 @@
+### 1. Получить последнюю запись аудита (по умолчанию OUT)
+GET http://localhost:8080/api/io-msgs/latest
+
+### 2. Получить последнюю входящую запись аудита (IN)
+GET http://localhost:8080/api/io-msgs/latest?dir=IN
+
+### 3. Получить запись аудита по конкретному requestId
+GET http://localhost:8080/api/io-msgs/by-request?requestId=7916d03a-82aa-45bc-9975-5930ab533111&dir=OUT

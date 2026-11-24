@@ -2,6 +2,7 @@ package ru.itone.illya4gurenko.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.itone.illya4gurenko.client.AppControllerClient;
 import ru.itone.illya4gurenko.dto.RequestEventDto;
 
 import java.math.BigDecimal;
