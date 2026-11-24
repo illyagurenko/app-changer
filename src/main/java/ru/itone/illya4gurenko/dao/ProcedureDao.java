@@ -12,7 +12,6 @@ import ru.itone.illya4gurenko.dto.RequestEventDto;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -49,7 +48,53 @@ public class ProcedureDao {
         });
     }
 
+    /**
+     * выполнение процедуры changer_data_account на переданном динамическом
+     * соединении
+     */
+    public ProcedureResult executeOnConnection(Connection conn, List<RequestEventDto> events) {
+        if (events == null || events.isEmpty()) {
+            return new ProcedureResult(0, "OK", Map.of());
+        }
+        boolean manageTx = false;
+        try {
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+                manageTx = true;
+            }
+        } catch (Exception ignored) {
+        }
+
+        try {
+            ProcedureResult result = executeInternal(conn, events);
+            if (manageTx) {
+                conn.commit();
+            }
+            return result;
+        } catch (SQLException e) {
+            if (manageTx) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ignored) {
+                }
+            }
+            log.error("sql error during procedure execution on custom connection", e);
+            return new ProcedureResult(1, e.getMessage(), Map.of());
+        } finally {
+            if (manageTx) {
+                try {
+                    conn.setAutoCommit(true);
+                } catch (SQLException ignored) {
+                }
+            }
+        }
+    }
+
     private ProcedureResult executeInternal(Connection conn, List<RequestEventDto> events) throws SQLException {
+        if (events == null || events.isEmpty()) {
+            return new ProcedureResult(0, null, Map.of());
+        }
+
         openInputCursor(conn, events);
 
         String callSql = "CALL \"ACC_APP_CHANGER\".changer_data_account(?, ?, ?, ?);";
@@ -79,13 +124,13 @@ public class ProcedureDao {
 
         Map<String, ProcedureResult.CalculatedBalance> balances = new HashMap<>();
         try (Statement fetchStmt = conn.createStatement();
-             ResultSet rs = fetchStmt.executeQuery("FETCH ALL FROM \"" + CUR_OUT_NAME + "\";")) {
+                ResultSet rs = fetchStmt.executeQuery("FETCH ALL FROM \"" + CUR_OUT_NAME + "\";")) {
 
             while (rs.next()) {
                 balances.put(
                         rs.getString("account"),
-                        new ProcedureResult.CalculatedBalance(rs.getBigDecimal("oldTbal"), rs.getBigDecimal("newTbal"))
-                );
+                        new ProcedureResult.CalculatedBalance(rs.getBigDecimal("oldTbal"),
+                                rs.getBigDecimal("newTbal")));
             }
         }
 
@@ -102,9 +147,9 @@ public class ProcedureDao {
             String currency = event.currency() != null ? event.currency().replace("'", "''") : "";
 
             sql.append("('").append(account)
-               .append("', '").append(operation)
-               .append("', ").append(amount.toPlainString()).append("::numeric(23,3), '")
-               .append(currency).append("')");
+                    .append("', '").append(operation)
+                    .append("', ").append(amount.toPlainString()).append("::numeric(23,3), '")
+                    .append(currency).append("')");
 
             if (i < events.size() - 1) {
                 sql.append(", ");

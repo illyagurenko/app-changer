@@ -1,4 +1,4 @@
-package ru.itone.illya4gurenko.service;
+package ru.itone.illya4gurenko.client;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.slf4j.Logger;

@@ -8,16 +8,21 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import ru.itone.illya4gurenko.client.AppControllerClient;
+import ru.itone.illya4gurenko.client.DispatcherClient;
 import ru.itone.illya4gurenko.dao.ProcedureDao;
 import ru.itone.illya4gurenko.dto.ProcedureResult;
+import ru.itone.illya4gurenko.dto.dispatcher.response.DispatcherDatasourceDto;
+import ru.itone.illya4gurenko.dto.dispatcher.response.DispatcherResponseBodyDto;
+import ru.itone.illya4gurenko.dto.dispatcher.response.DispatcherResponseDataDto;
 import ru.itone.illya4gurenko.entity.AppChangerConfig;
 import ru.itone.illya4gurenko.entity.AppChangerTrans;
-import ru.itone.illya4gurenko.service.AppControllerClient;
 import ru.itone.illya4gurenko.service.ConsumeService;
 import ru.itone.illya4gurenko.service.ProcessingService;
 import ru.itone.illya4gurenko.service.ProduceService;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,11 +46,14 @@ class ServiceIntegrationTest {
     AppControllerClient appControllerClient;
 
     @InjectMock
+    DispatcherClient dispatcherClient;
+
+    @InjectMock
     ProcedureDao procedureDao;
 
     @Test
     @DisplayName("успешная обработка транзакции процессором")
-    void testProcessTransactionSuccess() {
+    void testProcessTransactionSuccess() throws Exception {
         AppChangerTrans trans = new AppChangerTrans();
         trans.id = 1L;
         trans.requestId = "req-1";
@@ -59,7 +67,14 @@ class ServiceIntegrationTest {
                 """;
 
         Mockito.when(appControllerClient.checkAndRouteAccounts(any())).thenReturn(true);
-        Mockito.when(procedureDao.executeChangerDataAccount(any()))
+
+        DispatcherResponseBodyDto dispResp = new DispatcherResponseBodyDto(
+                "req-1", "APP_DISPATCHER", "Success", null,
+                new DispatcherResponseDataDto(List.of(new DispatcherDatasourceDto("jdbc:h2:mem:changer_test", List.of("ACC1"))))
+        );
+        Mockito.when(dispatcherClient.sendPost(any())).thenReturn(dispResp);
+
+        Mockito.when(procedureDao.executeOnConnection(any(), any()))
                 .thenReturn(new ProcedureResult(0, "OK", Map.of("ACC1", new ProcedureResult.CalculatedBalance(BigDecimal.valueOf(100), BigDecimal.valueOf(200)))));
 
         processingService.processTransaction(trans);
@@ -69,7 +84,7 @@ class ServiceIntegrationTest {
 
     @Test
     @DisplayName("обработка ошибки процедуры процессором")
-    void testProcessTransactionError() {
+    void testProcessTransactionError() throws Exception {
         AppChangerTrans trans = new AppChangerTrans();
         trans.id = 2L;
         trans.requestId = "req-2";
@@ -83,12 +98,20 @@ class ServiceIntegrationTest {
                 """;
 
         Mockito.when(appControllerClient.checkAndRouteAccounts(any())).thenReturn(true);
-        Mockito.when(procedureDao.executeChangerDataAccount(any()))
+
+        DispatcherResponseBodyDto dispResp = new DispatcherResponseBodyDto(
+                "req-2", "APP_DISPATCHER", "Success", null,
+                new DispatcherResponseDataDto(List.of(new DispatcherDatasourceDto("jdbc:h2:mem:changer_test", List.of("ACC2"))))
+        );
+        Mockito.when(dispatcherClient.sendPost(any())).thenReturn(dispResp);
+
+        Mockito.when(procedureDao.executeOnConnection(any(), any()))
                 .thenReturn(new ProcedureResult(-1, "Procedure error", Map.of()));
 
         processingService.processTransaction(trans);
 
-        assertEquals("-1", trans.respCode);
+        assertEquals("0", trans.respCode);
+        assertEquals("READY_TO_SEND", trans.status);
     }
 
     @Test

@@ -58,6 +58,30 @@ class ProcedureDaoTest {
     }
 
     @Test
+    @DisplayName("успешное выполнение на внешнем соединении executeOnConnection")
+    void testExecuteOnConnectionSuccess() throws Exception {
+        Connection conn = Mockito.mock(Connection.class);
+        Statement stmt = Mockito.mock(Statement.class);
+        CallableStatement cs = Mockito.mock(CallableStatement.class);
+        ResultSet rs = Mockito.mock(ResultSet.class);
+
+        when(conn.createStatement()).thenReturn(stmt);
+        when(conn.prepareCall(anyString())).thenReturn(cs);
+        when(cs.getInt(3)).thenReturn(0);
+        when(stmt.executeQuery(anyString())).thenReturn(rs);
+        when(rs.next()).thenReturn(true, false);
+        when(rs.getString("account")).thenReturn("ACC_1");
+        when(rs.getBigDecimal("oldTbal")).thenReturn(BigDecimal.ONE);
+        when(rs.getBigDecimal("newTbal")).thenReturn(BigDecimal.TEN);
+
+        ProcedureDao dao = new ProcedureDao();
+        RequestEventDto event = new RequestEventDto("1", "ACC_1", "RUB", BigDecimal.ONE, "PLUS");
+        ProcedureResult result = dao.executeOnConnection(conn, List.of(event));
+
+        assertEquals(0, result.code());
+    }
+
+    @Test
     @DisplayName("обработка возврата кода ошибки из хранимой процедуры")
     void testExecuteChangerDataAccountProcedureErrorCode() throws Exception {
         EntityManager em = Mockito.mock(EntityManager.class);
@@ -86,4 +110,3 @@ class ProcedureDaoTest {
         assertEquals(500, result.code());
     }
 }
-
